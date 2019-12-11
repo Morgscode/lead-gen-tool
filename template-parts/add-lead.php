@@ -1,3 +1,13 @@
+<?php
+/**
+ * form used to add leads
+ * 
+ * on post calls function of $lead_cotroller->createLead($newLead)
+ * 
+ */
+
+?>
+
 <section>
     <form action="" method="post" id="addLead" class="p-4" class="add-lead-form">
         <div class="form-close"><strong>X</strong></div>
