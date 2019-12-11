@@ -1,5 +1,5 @@
 <section>
-    <form action="" method="post" id="addLead" class="p-4">
+    <form action="" method="post" id="addLead" class="p-4" class="add-lead-form">
         <div class="form-close"><strong>X</strong></div>
         <div class="form-group">
             <label for="company-name">Company Name:</label>

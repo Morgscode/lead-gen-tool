@@ -1,6 +1,10 @@
 <?php
 
+// define routes
+$router = new Router();
+
+//define routes
 $router->define([
-    '/leadGenTool/' =>  require_once __DIR__.'/views/index-view.php',
-    '/leadGenTool/addlead' =>  require_once __DIR__.'/views/add-view.php' 
+    '/leadGenTool' =>  'views/index-view.php',
+    '/leadGenTool/add-lead' =>  'views/add-view.php' 
 ]);

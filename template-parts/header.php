@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
@@ -19,10 +19,10 @@
                     <h2 class="navbar-brand text-light">Lead Gen Tool</h2>
                     <ul class="navlinks-wrapper d-flex align-items-center">
                         <li class="nav-link">
-                            <a href="index.php" class="nav-item">Home</a>
+                            <a href="/leadGenTool" class="nav-item">Home</a>
                         </li>
                         <li class="nav-link">
-                            <a href="addlead" id="formDisplay" class="nav-item mb-0">Add Lead</a>
+                            <a href="/leadGenTool/add-lead" id="formDisplay" class="nav-item mb-0">Add Lead</a>
                         </li>
                     </ul>
                 </nav>
