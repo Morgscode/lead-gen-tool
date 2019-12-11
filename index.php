@@ -10,6 +10,4 @@ require_once 'routes.php';
 
 $uri = $_SERVER['REQUEST_URI'];
 
-var_dump($uri);
-
 $router->direct($uri);
