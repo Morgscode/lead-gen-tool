@@ -1,5 +1,10 @@
 <?php
 
+require __DIR__.'/../server/bootstrap.php';
+
+//define lead model
+require __DIR__.'/../model/Lead.php';
+
 class LeadController {
 
     private $db;

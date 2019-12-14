@@ -7,9 +7,3 @@ $database = new Database();
 
 //connect to database
 $dbconn = $database->connect();
-
-//define routes
-require_once 'Router.php';
-
-//define lead model
-require_once 'model/Lead.php';

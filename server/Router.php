@@ -2,20 +2,26 @@
 
 class Router {
 
-    protected $routes = [];
-
-    public function define($routes) {
-    
-        $this->routes = $routes;
-    }
-
     public function direct($uri) {
-        
-        if (array_key_exists($uri, $this->routes)) {
-            require $this->routes[$uri];
-        };
 
-        throw new Exception('no route defined for that request :/');
+        switch ($uri) {
+            case '' :
+                require __DIR__ . '/../views/index-view.php';
+                break;
+            case '/' :
+                require __DIR__ . '/../views/index-view.php';
+                break;
+            case '/leadGenTool/' :
+                    require __DIR__ . '/../views/index-view.php';
+                break;
+            case '/leadGenTool/add-lead' :
+                require __DIR__ . '/../views/add-view.php';
+                break;
+             default:
+                http_response_code(404);
+                require __DIR__ . '/../views/404.php';
+                break;
+        }
     }
     
 }

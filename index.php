@@ -1,10 +1,13 @@
 <?php 
-//boostrap app
-require_once 'server/bootstrap.php';
 
-// define routes
-require_once 'routes.php';
+// store request address
+$uri = trim($_SERVER['REQUEST_URI']);
 
-$uri = $_SERVER['REQUEST_URI'];
+//define router class
+require_once 'server/Router.php';
 
+//instantiate router
+$router = new Router();
+
+//direct http requests
 $router->direct($uri);
