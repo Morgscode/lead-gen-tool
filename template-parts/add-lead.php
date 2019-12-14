@@ -8,14 +8,9 @@
 
 ?>
 
-<?php if ($message) :  ?>
-
-<h2><?= $message; ?></h2>
-
-<?php endif; ?>
-
 <section class="bg-dark mt-4 text-light">
-    <form method="post" id="addLead" class="p-4" class="add-lead-form">
+    <form method="post" action="<?php echo $_SERVER['HTTP_REFERER'];?>lead-created" id="addLead" class="p-4"
+        class="add-lead-form">
         <div class="form-group">
             <label for="company-name">Company Name:</label>
             <input type="text" name="company-name" class="form-control" placeholder="enter company name"

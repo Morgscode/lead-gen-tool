@@ -7,3 +7,5 @@ $database = new Database();
 
 //connect to database
 $dbconn = $database->connect();
+
+$GLOBALS['con'] = $dbconn;

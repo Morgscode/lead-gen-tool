@@ -10,7 +10,14 @@
 
 <body>
     <h1>Wheres the fucking page Lebowski??</h1>
-    <?php var_dump($uri) ?>
+    <pre>
+        <?php var_dump($uri) ?>
+    </pre>
+
+    <pre>
+        <?php var_dump($_SERVER); ?>
+    </pre>
+
 </body>
 
 </html>

@@ -1,3 +1,5 @@
+alert('success');
+
 /*
 
 boilerplate for front-end mvc 

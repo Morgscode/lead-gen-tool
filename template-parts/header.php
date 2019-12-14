@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="<?=__DIR__;?>/style.css">
+    <link rel="stylesheet" href="localhost/leadGenTool/style.css">
 </head>
 
 <body>
@@ -29,9 +29,13 @@
                         <li class="nav-link">
                             <a href="/leadGenTool" class="nav-item">Home</a>
                         </li>
+                        <?php if (!isset($_POST['company-name'])) : ?>
                         <li class="nav-link">
-                            <a href="/leadGenTool/add-lead" id="formDisplay" class="nav-item mb-0">Add Lead</a>
+                            <a href="/leadGenTool/add-lead" id="formDisplay" class="nav-item mb-0">Add
+                                Lead</a>
                         </li>
+                        <?php endif; ?>
+
                     </ul>
                 </nav>
             </div>

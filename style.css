@@ -6,18 +6,7 @@ body {
 form.add-lead-form {
   position: relative;
   margin: 50px auto;
-  display: none;
-  border: 1px solid #212121;
-  background-color: #f4f4f4;
   border-radius: 3px;
-}
-
-#formDisplay {
-  cursor: pointer;
-}
-
-#formDisplay:hover {
-  text-decoration: underline;
 }
 
 .navbar .nav-item {
