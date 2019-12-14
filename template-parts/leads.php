@@ -5,7 +5,7 @@
     if ($leads) :
         
     foreach($leads as $lead) : ?>
-        <div class="col-lg-4 col-md-6 col-sm-12 lead card d-flex flex-column p-3">
+        <div class="col-lg-3 col-md-6 col-sm-12 lead card d-flex flex-column p-3 m-2">
             <h3><?php echo $lead->company_name; ?></h3>
             <p>contact:<?php echo $lead->company_contact; ?></p>
             <p>contact email:<?php echo $lead->company_contact_email; ?></p>
