@@ -1,3 +1,11 @@
+<?php 
+/**
+ * Template Name: Footer.php
+ * 
+ */
+
+?>
+</div>
 </div>
 </main>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

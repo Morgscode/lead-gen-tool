@@ -14,6 +14,7 @@ class Lead
         $this->company_contact_email = $contact_email;
         
     }
+
 }
 
 
