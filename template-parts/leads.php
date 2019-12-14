@@ -2,7 +2,7 @@
     <h2 class="lead-heading mt-4 mb-4">Your Leads</h2>
     <div class="row leads mb-4 mt-4 p-3">
         <?php 
-    $leads = $lead_controller->getAllLeads();
+    if ($leads) :
         
     foreach($leads as $lead) : ?>
         <div class="col-lg-4 col-md-6 col-sm-12 lead card d-flex flex-column p-3">
@@ -10,6 +10,14 @@
             <p>contact:<?php echo $lead->company_contact; ?></p>
             <p>contact email:<?php echo $lead->company_contact_email; ?></p>
         </div>
-        <?php endforeach; ?>
+
+        <?php endforeach;
+
+     elseif ($message) : ?>
+
+        <h1><?= $message; ?></h1>
+
+        <?php  endif; ?>
+
     </div>
 </section>

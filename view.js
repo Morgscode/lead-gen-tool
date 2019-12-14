@@ -1,6 +1,6 @@
 /*
 
-feature not implemented as I want to seperate the view where leads are added, and displayed
+boilerplate for front-end mvc 
 
 const viewController = (function() {
   const domElements = {

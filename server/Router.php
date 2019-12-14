@@ -5,16 +5,10 @@ class Router {
     public function direct($uri) {
 
         switch ($uri) {
-            case '' :
-                require __DIR__ . '/../views/index-view.php';
-                break;
-            case '/' :
-                require __DIR__ . '/../views/index-view.php';
-                break;
-            case '/leadGenTool/' :
+            case 'leadGenTool' :
                     require __DIR__ . '/../views/index-view.php';
                 break;
-            case '/leadGenTool/add-lead' :
+            case 'leadGenTool/add-lead' :
                 require __DIR__ . '/../views/add-view.php';
                 break;
              default:
