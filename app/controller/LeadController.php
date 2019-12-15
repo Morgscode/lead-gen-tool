@@ -44,6 +44,9 @@ class LeadController {
                 $statement->bindValue(":company_contact_email", $company_contact_email);
     
                 $statement->execute();
+                
+                // reset $newLead data to empty to prevent double submission
+                $newLead = array();   
     
              } catch (PDOException $e) {
                  

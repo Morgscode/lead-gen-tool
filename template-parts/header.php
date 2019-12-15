@@ -22,15 +22,15 @@
     <div class="site-bg container-fluid bg-light p-0">
         <header>
             <div class="container-fluid navBg bg-dark">
-                <nav class="navbar container">
-                    <h2 class="navbar-brand text-light">Lead Gen Tool</h2>
-                    <ul class="navlinks-wrapper d-flex align-items-center">
+                <nav class="navbar container d-flex align-items-center">
+                    <h2 class="navbar-brand text-light mb-0">Lead Gen Tool</h2>
+                    <ul class="navlinks-wrapper d-flex align-items-center mb-0">
                         <li class="nav-link">
-                            <a href="/leadGenTool" class="nav-item">Home</a>
+                            <a href="/leadGenTool" class="nav-item  text-light">Home</a>
                         </li>
                         <?php if (!isset($_POST['company-name'])) : ?>
                         <li class="nav-link">
-                            <a href="/leadGenTool/add-lead" id="formDisplay" class="nav-item mb-0">Add
+                            <a href="/leadGenTool/add-lead" id="formDisplay" class="nav-item mb-0  text-light">Add
                                 Lead</a>
                         </li>
                         <?php endif; ?>
