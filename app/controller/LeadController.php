@@ -34,26 +34,29 @@ class LeadController {
             $company_contact_email = $newLead["company-contact-email"];
 
             try {
+
+                if (isset($newLead['submission'])) : 
+
+                    $query = "INSERT INTO companies (company_name, company_contact, company_contact_email) VALUES (:company_name, :company_contact, :company_contact_email)";
                 
-                $query = "INSERT INTO companies (company_name, company_contact, company_contact_email) VALUES (:company_name, :company_contact, :company_contact_email)";
+                    $statement = $this->db->conn->prepare($query);
                 
-                $statement = $this->db->conn->prepare($query);
-            
-                $statement->bindValue(":company_name", $company_name);
-                $statement->bindValue(":company_contact", $company_contact);
-                $statement->bindValue(":company_contact_email", $company_contact_email);
-    
-                $statement->execute();
-                
-                // reset $newLead data to empty to prevent double submission
-                $newLead = array();   
-    
+                    $statement->bindValue(":company_name", $company_name);
+                    $statement->bindValue(":company_contact", $company_contact);
+                    $statement->bindValue(":company_contact_email", $company_contact_email);
+        
+                    $statement->execute();
+                    
+                    header("Location: lead-created");
+                    
+                endif;
+
              } catch (PDOException $e) {
                  
                $message = "Sorry! We couldn't complete that request :/".$e->getMessage();
+
+               header("Location: lead-created");
     
-               return $message;
-               
              }
 
          endif;
