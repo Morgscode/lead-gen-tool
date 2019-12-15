@@ -19,7 +19,7 @@
 </head>
 
 <body>
-    <div class="site-bg container-fluid bg-light p-0">
+    <div class="site-bg container-fluid p-0">
         <header>
             <div class="container-fluid navBg bg-dark">
                 <nav class="navbar container d-flex align-items-center">
@@ -40,4 +40,4 @@
             </div>
         </header>
         <main>
-            <div class="site-container container" style="background: #f9f9f9">
+            <div class="site-container bg-light container pl-4 pr-4" style="background: #f9f9f9">
