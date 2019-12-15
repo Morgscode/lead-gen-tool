@@ -10,11 +10,11 @@
 
 <body>
     <h1>Wheres the fucking page Lebowski??</h1>
-    <pre>
+    <pre class="card p2">
         <?php var_dump($uri) ?>
     </pre>
 
-    <pre>
+    <pre class="card p2">
         <?php var_dump($_SERVER); ?>
     </pre>
 
