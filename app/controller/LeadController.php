@@ -53,17 +53,14 @@ class LeadController {
 
              } catch (PDOException $e) {
                  
-               $message = "Sorry! We couldn't complete that request :/".$e->getMessage();
-
+               $_GLOBALS['message'] = "We're sorry, we couldn't complete that request :/".$e->getMessage();
                header("Location: lead-created");
-    
              }
 
          endif;
-      
      }  
 }
-
+    
 //instantiate lead controller
 $lead_controller = new LeadController($database);
 
