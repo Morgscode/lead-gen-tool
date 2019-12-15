@@ -7,6 +7,8 @@ require_once __DIR__.'/../model/Lead.php';
 class LeadController {
 
     private $db;
+    private $query;
+    private $statement;
    
     public function __construct($db) {
         $this->db = $db;
@@ -15,11 +17,11 @@ class LeadController {
      public function getAllLeads() {
 
         try {
-            $query = "SELECT * FROM companies";
-            $statement = $this->db->conn->prepare($query);
-            $statement->execute();
+            $this->query = "SELECT * FROM companies";
+            $this->statement = $this->db->conn->prepare($this->query);
+            $this->statement->execute();
    
-            return $leads = $statement->fetchAll(PDO::FETCH_OBJ);
+            return $leads = $this->statement->fetchAll(PDO::FETCH_OBJ);
         } catch (\Throwable $th) {
             $message =  "We're sorry, we couldn't find those leads";
             return $message;
@@ -32,23 +34,25 @@ class LeadController {
          if (!empty($newLead)) : 
 
             try {
-                    $query = "INSERT INTO companies (company_name, company_contact,contact_role, company_contact_email) VALUES (:company_name, :company_contact, :contact_role, :company_contact_email)";
+                    $this->query = "INSERT INTO companies (company_name, company_contact,contact_role, company_contact_email) VALUES (:company_name, :company_contact, :contact_role, :company_contact_email)";
                 
-                    $statement = $this->db->conn->prepare($query);
+                    $this->statement = $this->db->conn->prepare($this->query);
                 
-                    $statement->bindValue(":company_name", $newLead->company_name);
-                    $statement->bindValue(":company_contact", $newLead->company_contact);
-                    $statement->bindValue(":contact_role", $newLead->contact_role);
-                    $statement->bindValue(":company_contact_email", $newLead->company_contact_email);
+                    $this->statement->bindValue(":company_name", $newLead->company_name);
+                    $this->statement->bindValue(":company_contact", $newLead->company_contact);
+                    $this->statement->bindValue(":contact_role", $newLead->contact_role);
+                    $this->statement->bindValue(":company_contact_email", $newLead->company_contact_email);
         
-                    $statement->execute();
+                    $this->statement->execute();
                     
                     header("Location: lead-created");
+                    exit;
                     
              } catch (PDOException $e) {
                  
                $_GLOBALS['message'] = "We're sorry, we couldn't complete that request :/".$e->getMessage();
                header("Location: lead-created");
+               exit;
              } 
 
          endif; 
@@ -59,13 +63,13 @@ class LeadController {
         if (isset($id) && $id == $_GET['id']) : 
 
             try {
-                $query = "SELECT * FROM companies WHERE id=:id";
-                $statement = $this->db->conn->prepare($query);
-                $statement->bindValue(":id", $id);
+                $this->query = "SELECT * FROM companies WHERE id=:id";
+                $this->statement = $this->db->conn->prepare($this->query);
+                $this->statement->bindValue(":id", $id);
 
-                $statement->execute();
+                $this->statement->execute();
 
-                return $lead = $statement->fetch(PDO::FETCH_OBJ);
+                return $lead = $this->statement->fetch(PDO::FETCH_OBJ);
                 
             } catch (\Throwable $th) {
                 $_GLOBALS['message'] =  "We're sorry, we couldn't find those leads";
@@ -78,11 +82,11 @@ class LeadController {
      public function deleteLead($id) {
 
             try {
-                $query = "DELETE FROM companies WHERE id=:id";
-                $statement = $this->db->conn->prepare($query);
-                $statement->bindValue(":id", $id);
+                $this->query = "DELETE FROM companies WHERE id=:id";
+                $this->statement = $this->db->conn->prepare($this->query);
+                $this->statement->bindValue(":id", $id);
 
-                $statement->execute();
+                $this->statement->execute();
 
                 header("Location: /leadGenTool");
                 exit;
