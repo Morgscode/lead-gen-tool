@@ -4,7 +4,7 @@
 $uri = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
 //define router class
-require_once 'server/Router.php';
+require_once __DIR__.'/app/server/Router.php';
 
 //instantiate router
 $router = new Router();

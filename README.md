@@ -6,4 +6,4 @@ Nothing special here guys, just some self-teaching
 STACK
 
 SERVER-SIDE -> PHP, MySQL (pdo)
-CLIENT-SIDE -> Bootstrap, JS
+CLIENT-SIDE -> Bootstrap
