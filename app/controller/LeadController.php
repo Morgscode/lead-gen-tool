@@ -50,7 +50,7 @@ class LeadController {
                     
              } catch (PDOException $e) {
                  
-               $_GLOBALS['message'] = "We're sorry, we couldn't complete that request :/".$e->getMessage();
+               return $_GLOBALS['message'] = "We're sorry, we couldn't complete that request :/".$e->getMessage();
                header("Location: lead-created");
                exit;
              } 
@@ -72,7 +72,7 @@ class LeadController {
                 return $lead = $this->statement->fetch(PDO::FETCH_OBJ);
                 
             } catch (\Throwable $th) {
-                $_GLOBALS['message'] =  "We're sorry, we couldn't find those leads";
+                return $_GLOBALS['message'] =  "We're sorry, we couldn't find those leads";
             } 
           
         endif;    
@@ -93,7 +93,7 @@ class LeadController {
 
             } catch (\Throwable $th) {
 
-                $_GLOBALS['message'] =  "We're sorry, we couldn't delete that lead from the database";
+                return $_GLOBALS['message'] =  "We're sorry, we couldn't delete that lead from the database";
             } 
 
             header("Location:  ");
