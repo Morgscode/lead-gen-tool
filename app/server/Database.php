@@ -29,20 +29,20 @@ class Database {
 
   public function evaluateTable($tableToEvaluate) {
 
-    $table = strval($tableToEvaluate);
+    $tableToEvaluate = strval($tableToEvaluate);
 
     try {
       
       $this->query = "SHOW TABLES";
       $this->statement = $this->conn->prepare($this->query);
-
       $dbtable = $this->statement->execute();
-
       $tables = $this->statement->fetchAll(PDO::FETCH_OBJ);
       
       foreach($tables as $table) {
         if (strval($table->Tables_in_leadgendb) === $tableToEvaluate ) :
-          return; 
+           
+          echo $table->Tables_in_leadgendb.'<br/>';
+          return;
         else : 
           //crate table in db -> switch statement
         endif;

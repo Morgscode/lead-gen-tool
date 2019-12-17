@@ -37,12 +37,10 @@ class LeadController {
                     $this->query = "INSERT INTO companies (company_name, company_contact,contact_role, company_contact_email) VALUES (:company_name, :company_contact, :contact_role, :company_contact_email)";
                 
                     $this->statement = $this->db->conn->prepare($this->query);
-                
                     $this->statement->bindValue(":company_name", $newLead->company_name);
                     $this->statement->bindValue(":company_contact", $newLead->company_contact);
                     $this->statement->bindValue(":contact_role", $newLead->contact_role);
                     $this->statement->bindValue(":company_contact_email", $newLead->company_contact_email);
-        
                     $this->statement->execute();
                     
                     header("Location: lead-created");
@@ -66,7 +64,6 @@ class LeadController {
                 $this->query = "SELECT * FROM companies WHERE id=:id";
                 $this->statement = $this->db->conn->prepare($this->query);
                 $this->statement->bindValue(":id", $id);
-
                 $this->statement->execute();
 
                 return $lead = $this->statement->fetch(PDO::FETCH_OBJ);
@@ -85,7 +82,6 @@ class LeadController {
                 $this->query = "DELETE FROM companies WHERE id=:id";
                 $this->statement = $this->db->conn->prepare($this->query);
                 $this->statement->bindValue(":id", $id);
-
                 $this->statement->execute();
 
                 header("Location: /leadGenTool");
