@@ -35,7 +35,6 @@ class LeadController {
 
             try {
                     $this->query = "INSERT INTO companies (company_name, company_contact,contact_role, company_contact_email) VALUES (:company_name, :company_contact, :contact_role, :company_contact_email)";
-                
                     $this->statement = $this->db->conn->prepare($this->query);
                     $this->statement->bindValue(":company_name", $newLead->company_name);
                     $this->statement->bindValue(":company_contact", $newLead->company_contact);
@@ -100,7 +99,7 @@ class LeadController {
 $lead_controller = new LeadController($database);
 
 // set controller actions
-if  ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['_method'] === 'delete') {
+if  ( $_POST['_method'] && !empty($_POST['_method']) && $_POST['_method'] === 'delete') {
 
     $lead_controller->deleteLead($_POST['id']);
 
@@ -115,7 +114,6 @@ if  ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['_method'] === 'delete') {
 }  elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $newLead = new Lead($_POST);
-
     $lead_controller->createLead($newLead);
-
+    
 }

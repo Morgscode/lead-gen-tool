@@ -36,7 +36,7 @@
 
      else : ?>
 
-        <h1>We're sorry, we couldn't fetch your leads from the database</h1>
+        <h1 class="text-center mb-4 mt-4 pb-4 pt-4">Non leads to show!</h1>
 
         <?php  endif; ?>
 
