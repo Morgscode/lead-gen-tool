@@ -65,9 +65,14 @@ class Database {
 
   public function createTable($table) {
 
-     try {
+    if ($table === "companies") :
 
       $this->query = "CREATE TABLE `leadGenDB`.$table ( `id` INT NOT NULL AUTO_INCREMENT , `company_name` VARCHAR(255) NOT NULL , `company_contact` VARCHAR(255) NOT NULL , `contact_role` VARCHAR(255) NOT NULL , `company_contact_email` VARCHAR(255) NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB";
+
+    endif;
+
+     try {
+
       $this->statement = $this->conn->prepare($this->query);
       $dbtable = $this->statement->execute(); 
       
@@ -76,6 +81,8 @@ class Database {
       $_GLOBALS['message'] =  "We couldn't instantiate that databse :/";
 
      }
+
+  
 
   }
   

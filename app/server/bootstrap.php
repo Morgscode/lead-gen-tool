@@ -10,8 +10,6 @@ $dbconn = $database->connect();
 
 $database->evaluateTable("companies");
 
-var_dump($database->tableExists);
-
 if ($database->tableExists == false) : 
     
     $database->createTable("companies");

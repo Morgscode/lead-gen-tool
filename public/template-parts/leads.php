@@ -22,6 +22,7 @@
                 <div class="row p-3 w-100 d-flex justify-content-between">
                     <form action="update-lead" method="get">
                         <input type="hidden" name="id" value="<?= $lead->id?>">
+                        <input type="hidden" name="_scriptLoad" value="updateScript">
                         <button style="font-size: 14px;" type="submit" class="btn btn-secondary">Update lead</button>
                     </form>
                     <form action="delete-lead" method="get">
@@ -36,7 +37,7 @@
 
      else : ?>
 
-        <h1 class="text-center mb-4 mt-4 pb-4 pt-4">Non leads to show!</h1>
+        <h1 class="text-center mb-4 mt-4 pb-4 pt-4">No leads to show!</h1>
 
         <?php  endif; ?>
 

@@ -21,10 +21,10 @@ class LeadController {
             $this->statement = $this->db->conn->prepare($this->query);
             $this->statement->execute();
    
-            return $leads = $this->statement->fetchAll(PDO::FETCH_OBJ);
+            return $this->statement->fetchAll(PDO::FETCH_OBJ);
         } catch (\Throwable $th) {
-            $message =  "We're sorry, we couldn't find those leads";
-            return $message;
+            $_GLOBALS['message'] =  "We're sorry, we couldn't find those leads";
+            return $_GLOBALS;
         } 
 
      }
@@ -111,7 +111,7 @@ if  ( $_POST['_method'] && !empty($_POST['_method']) && $_POST['_method'] === 'd
 
     $lead = $lead_controller->getSingleLead($_GET['id']);
 
-}  elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+}  elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST) && !empty($_POST)) {
 
     $newLead = new Lead($_POST);
     $lead_controller->createLead($newLead);
