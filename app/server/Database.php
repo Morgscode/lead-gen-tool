@@ -81,11 +81,7 @@ class Database {
       $_GLOBALS['message'] =  "We couldn't instantiate that databse :/";
 
      }
-
-  
-
-  }
-  
+  }  
 }
 
 
