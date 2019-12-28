@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/../controller/LeadController.php';
 
-require __DIR__.'/../../template-parts/header.php'; ?>
+require __DIR__.'/../../public/template-parts/header.php'; ?>
 
 <?php if ( isset($_GLOBALS['message']) && !empty($_GLOBALS['message']) ) : ?>
 
@@ -19,4 +19,4 @@ require __DIR__.'/../../template-parts/header.php'; ?>
 </div>
 <?php endif ?>
 
-<?php require __DIR__.'/../../template-parts/footer.php' ;?>
+<?php require __DIR__.'/../../public/template-parts/footer.php' ;?>

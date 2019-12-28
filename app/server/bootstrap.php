@@ -7,3 +7,11 @@ $database = new Database();
 
 //connect to database
 $dbconn = $database->connect();
+
+$database->evaluateTable("companies");
+
+if ($database->tableExists == false) : 
+    
+    $database->createTable("companies");
+
+endif;
