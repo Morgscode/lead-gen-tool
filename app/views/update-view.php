@@ -12,7 +12,12 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
                 <input type="hidden" name="id" value="<?= $lead->id?>">
                 <input type="hidden" name="_method" value="update">
                 <h4>Update <?= $lead->company_name; ?></h4>
-
+                <div class="form-group" id="update-form-fields"></div>
+                <div class="row ml-0 mr-0 d-none" id="update-buttons">
+                    <button type="button" id="cancel-update" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" id="update-lead" class="btn btn-success ml-auto">Update
+                        <?= $lead->company_name ?></button>
+                </div>
             </form>
         </div>
         <div class="col-md-4 col-sm-12">

@@ -1,6 +1,7 @@
 const updateLeadController = (function() {
   const domElements = {
     updateForm: document.querySelector("#update-lead-form"),
+    updateFormFields: document.querySelector("#update-form-fields"),
     updateCompanyName: document.querySelector("#company-name"),
     updateContactName: document.querySelector("#company-contact"),
     updateContactRole: document.querySelector("#contact-role"),
@@ -8,7 +9,14 @@ const updateLeadController = (function() {
     currentCompanyName: document.querySelector("#current-company-name"),
     currentCompanyContact: document.querySelector("#current-company-contact"),
     currentContactRole: document.querySelector("#current-contact-role"),
-    currentContactEmail: document.querySelector("#current-contact-email")
+    currentContactEmail: document.querySelector("#current-contact-email"),
+    updateFormButtons: document.querySelector("#update-buttons")
+  };
+
+  const evaluateUpdateButtons = () => {
+    if (domElements.updateFormButtons.classList.contains("d-none")) {
+      domElements.updateFormButtons.classList.remove("d-none");
+    }
   };
 
   const appendFormHtml = {
@@ -28,10 +36,13 @@ const updateLeadController = (function() {
         `Current company name: ${domElements.currentCompanyName.innerText}`
       );
       input.classList.add("form-control");
+      input.setAttribute("required", "required");
 
       formGroup.appendChild(input);
 
-      domElements.updateForm.appendChild(formGroup);
+      domElements.updateFormFields.appendChild(formGroup);
+
+      evaluateUpdateButtons();
 
       domElements.updateCompanyName.disabled = true;
     },
@@ -51,10 +62,13 @@ const updateLeadController = (function() {
         `Current contact name: ${domElements.currentCompanyContact.innerText}`
       );
       input.classList.add("form-control");
+      input.setAttribute("required", "required");
 
       formGroup.appendChild(input);
 
-      domElements.updateForm.appendChild(formGroup);
+      domElements.updateFormFields.appendChild(formGroup);
+
+      evaluateUpdateButtons();
 
       domElements.updateContactName.disabled = true;
     },
@@ -74,10 +88,13 @@ const updateLeadController = (function() {
         `Current contact role: ${domElements.currentContactRole.innerText}`
       );
       input.classList.add("form-control");
+      input.setAttribute("required", "required");
 
       formGroup.appendChild(input);
 
-      domElements.updateForm.appendChild(formGroup);
+      domElements.updateFormFields.appendChild(formGroup);
+
+      evaluateUpdateButtons();
 
       domElements.updateContactRole.disabled = true;
     },
@@ -97,10 +114,13 @@ const updateLeadController = (function() {
         `Current contact email: ${domElements.currentContactEmail.innerText}`
       );
       input.classList.add("form-control");
+      input.setAttribute("required", "required");
 
       formGroup.appendChild(input);
 
-      domElements.updateForm.appendChild(formGroup);
+      domElements.updateFormFields.appendChild(formGroup);
+
+      evaluateUpdateButtons();
 
       domElements.updateContactEmail.disabled = true;
     }
