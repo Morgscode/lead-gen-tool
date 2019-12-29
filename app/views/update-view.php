@@ -8,7 +8,7 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
     <h3 class="mb-4">Update your lead details by selecting the fields you wish to update</h3>
     <div class="row">
         <div class="col-md-8 col-sm-12">
-            <form method="post" class="form p-4 card" id="update-lead-form">
+            <form action="lead-updated" method="post" class="form p-4 card" id="update-lead-form">
                 <input type="hidden" name="id" value="<?= $lead->id?>">
                 <input type="hidden" name="_method" value="update">
                 <h4>Update <?= $lead->company_name; ?></h4>

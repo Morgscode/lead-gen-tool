@@ -2,7 +2,9 @@
 
 require_once __DIR__.'/../server/bootstrap.php';
 
-require_once __DIR__.'/../model/Lead.php';
+require_once __DIR__.'/../models/Lead.php';
+
+require_once __DIR__.'/../models/UpdatedLead.php';
 
 class LeadController {
 
@@ -57,7 +59,7 @@ class LeadController {
 
      public function getSingleLead($id) {
 
-        if (isset($id) && $id == $_GET['id']) : 
+        if (isset($id)) : 
 
             try {
                 $this->query = "SELECT * FROM companies WHERE id=:id";
@@ -92,7 +94,41 @@ class LeadController {
             } 
 
             header("Location:  ");
-     }  
+     }
+     
+     public function updateLead($updatedLead, $currentLead) {
+
+        $this->query = "UPDATE companies SET company_name=:company_name, company_contact=:company_contact, contact_role=:contact_role, company_contact_email=:company_contact_email WHERE id=:id";
+        $this->statement = $this->db->conn->prepare($this->query);
+
+        if ($updatedLead->company_name !== NULL) : 
+            $this->statement->bindValue(':company_name', $updatedLead->company_name);
+        else: 
+            $this->statement->bindValue(':company_name', $currentLead->company_name);
+        endif;
+
+        if ($updatedLead->company_contact !== NULL) : 
+            $this->statement->bindValue(':company_contact', $updatedLead->company_contact);
+        else: 
+            $this->statement->bindValue(':company_contact', $currentLead->company_contact);
+        endif;
+
+        if ($updatedLead->contact_role !== NULL) : 
+            $this->statement->bindValue(':contact_role', $updatedLead->contact_role);
+        else: 
+            $this->statement->bindValue(':contact_role', $currentLead->contact_role);
+        endif;
+
+        if ($updatedLead->company_contact_email !== NULL) : 
+            $this->statement->bindValue(':company_contact_email', $updatedLead->company_contact_email);
+        else: 
+            $this->statement->bindValue(':company_contact_email', $currentLead->company_contact_email);
+        endif;
+
+        $this->statement->bindValue(':id', $currentLead->id);
+
+        $this->statement->execute();    
+     }
 }
     
 //instantiate lead controller
@@ -111,9 +147,15 @@ if  ( $_POST['_method'] && !empty($_POST['_method']) && $_POST['_method'] === 'd
 
     $lead = $lead_controller->getSingleLead($_GET['id']);
 
-}  elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST) && !empty($_POST)) {
+}  elseif ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST) && !empty($_POST) && empty($_POST['_method']) ) {
 
-    $newLead = new Lead($_POST);
+    $newLead = new UpdatedLead($_POST);
     $lead_controller->createLead($newLead);
     
+} elseif ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST) && !empty($_POST) && !empty($_POST['_method']) && $_POST['_method'] === 'update' ) {
+    
+    $newUpdatedLead = new UpdatedLead($_POST);
+    $currentLead = $lead_controller->getSingleLead($newUpdatedLead->id);
+    $lead_controller->updateLead($newUpdatedLead, $currentLead);
+
 }
