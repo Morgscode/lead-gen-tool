@@ -2,6 +2,7 @@ const updateLeadController = (function() {
   const domElements = {
     updateForm: document.querySelector("#update-lead-form"),
     updateFormFields: document.querySelector("#update-form-fields"),
+    updateFormButtons: document.querySelector("#update-buttons"),
     updateCompanyName: document.querySelector("#company-name"),
     updateContactName: document.querySelector("#company-contact"),
     updateContactRole: document.querySelector("#contact-role"),
@@ -9,8 +10,7 @@ const updateLeadController = (function() {
     currentCompanyName: document.querySelector("#current-company-name"),
     currentCompanyContact: document.querySelector("#current-company-contact"),
     currentContactRole: document.querySelector("#current-contact-role"),
-    currentContactEmail: document.querySelector("#current-contact-email"),
-    updateFormButtons: document.querySelector("#update-buttons")
+    currentContactEmail: document.querySelector("#current-contact-email")
   };
 
   const evaluateUpdateButtons = () => {
@@ -37,6 +37,7 @@ const updateLeadController = (function() {
       );
       input.classList.add("form-control");
       input.setAttribute("required", "required");
+      input.setAttribute("name", "company-name");
 
       formGroup.appendChild(input);
 
@@ -63,6 +64,7 @@ const updateLeadController = (function() {
       );
       input.classList.add("form-control");
       input.setAttribute("required", "required");
+      input.setAttribute("name", "contact-name");
 
       formGroup.appendChild(input);
 
@@ -89,6 +91,7 @@ const updateLeadController = (function() {
       );
       input.classList.add("form-control");
       input.setAttribute("required", "required");
+      input.setAttribute("name", "contact-role");
 
       formGroup.appendChild(input);
 
@@ -115,6 +118,7 @@ const updateLeadController = (function() {
       );
       input.classList.add("form-control");
       input.setAttribute("required", "required");
+      input.setAttribute("name", "company-contact-email");
 
       formGroup.appendChild(input);
 
