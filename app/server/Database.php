@@ -61,7 +61,7 @@ class Database {
 
     foreach($this->databases as $database) {
     
-      if ($database['Database'] === 'leadGenDB') :
+      if ($database['Database'] == 'leadGenDB') :
        
       $this->dbExists = true;
  

@@ -5,7 +5,7 @@ require_once 'Database.php';
 //instantiate database
 $database = new Database();
 
-//connect to database
+//connect to db server
 $dbconn = $database->connect();
 
 //evaluate if leadGenDB exists
@@ -14,6 +14,10 @@ $database->evaluateLeadGenDB();
 if ($database->dbExists === false ) : 
 //create db if !exists
 $database->createLeadGenDatabase();
+
+else : 
+// connect to db if (exists)
+$database->connectToLeadGenDatabase();
 
 endif;
 
