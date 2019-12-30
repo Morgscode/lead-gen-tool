@@ -83,7 +83,7 @@ class Database {
       
      } catch (\Throwable $th) {
        
-      $_GLOBALS['message'] =  "We couldn't instantiate that databse :/";
+      $_GLOBALS['message'] =  "We couldn't instantiate that database :/";
 
      }
 
@@ -129,14 +129,16 @@ class Database {
 
     if ($table === "companies") :
 
-      $this->query = "CREATE TABLE `leadGenDB`.$table ( `id` INT NOT NULL AUTO_INCREMENT , `company_name` VARCHAR(255) NOT NULL , `company_contact` VARCHAR(255) NOT NULL , `contact_role` VARCHAR(255) NOT NULL , `company_contact_email` VARCHAR(255) NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB";
+      $this->query = "CREATE TABLE companies ( `id` INT NOT NULL AUTO_INCREMENT , `company_name` VARCHAR(255) NOT NULL , `company_contact` VARCHAR(255) NOT NULL , `contact_role` VARCHAR(255) NOT NULL , `company_contact_email` VARCHAR(255) NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB";
+    
 
     endif;
 
      try {
 
       $this->statement = $this->conn->prepare($this->query);
-      $dbtable = $this->statement->execute(); 
+ 
+      $this->statement->execute(); 
       
      } catch (\Throwable $th) {
        
