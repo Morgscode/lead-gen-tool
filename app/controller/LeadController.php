@@ -138,7 +138,7 @@ class LeadController {
      }
 }
     
-//instantiate lead controller
+// instantiate lead controller
 $lead_controller = new LeadController($database);
 
 // set controller actions
