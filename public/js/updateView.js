@@ -1,4 +1,11 @@
-const updateLeadController = (function() {
+// -- VIEW
+const updateUIController = (function() {
+  const evaluateUpdateButtons = () => {
+    if (domElements.updateFormButtons.classList.contains("d-none")) {
+      domElements.updateFormButtons.classList.remove("d-none");
+    }
+  };
+
   const domElements = {
     updateForm: document.querySelector("#update-lead-form"),
     updateFormFields: document.querySelector("#update-form-fields"),
@@ -13,13 +20,7 @@ const updateLeadController = (function() {
     currentContactEmail: document.querySelector("#current-contact-email")
   };
 
-  const evaluateUpdateButtons = () => {
-    if (domElements.updateFormButtons.classList.contains("d-none")) {
-      domElements.updateFormButtons.classList.remove("d-none");
-    }
-  };
-
-  const appendFormHtml = {
+  const appendFormHTMLFunctions = {
     updateCompany: function() {
       let formGroup = document.createElement("div");
       formGroup.classList.add("form-group");
@@ -89,9 +90,9 @@ const updateLeadController = (function() {
         "placeholder",
         `Current contact role: ${domElements.currentContactRole.innerText}`
       );
-      input.classList.add("form-control");
       input.setAttribute("required", "required");
       input.setAttribute("name", "contact-role");
+      input.classList.add("form-control");
 
       formGroup.appendChild(input);
 
@@ -130,24 +131,50 @@ const updateLeadController = (function() {
     }
   };
 
-  const eventListeners = [
-    domElements.updateCompanyName.addEventListener(
-      "click",
-      appendFormHtml.updateCompany
-    ),
-    domElements.updateContactName.addEventListener(
-      "click",
-      appendFormHtml.updateCompanyContact
-    ),
-    domElements.updateContactRole.addEventListener(
-      "click",
-      appendFormHtml.updateCompanyContactRole
-    ),
-    domElements.updateContactEmail.addEventListener(
-      "click",
-      appendFormHtml.updateCompanyContactEmail
-    )
-  ];
-
-  return eventListeners;
+  return {
+    getDomInputs: function() {
+      return domElements;
+    },
+    generateFormHTMLFunctions: function() {
+      return appendFormHTMLFunctions;
+    }
+  };
 })();
+
+// --- CONTROLLER
+const updateAppController = (function(updateViewController) {
+  const eventBox = () => {
+    let domInterface = updateViewController.getDomInputs();
+    let appendFormHtml = updateViewController.generateFormHTMLFunctions();
+
+    const eventListeners = [
+      domInterface.updateCompanyName.addEventListener(
+        "click",
+        appendFormHtml.updateCompany
+      ),
+      domInterface.updateContactName.addEventListener(
+        "click",
+        appendFormHtml.updateCompanyContact
+      ),
+      domInterface.updateContactRole.addEventListener(
+        "click",
+        appendFormHtml.updateCompanyContactRole
+      ),
+      domInterface.updateContactEmail.addEventListener(
+        "click",
+        appendFormHtml.updateCompanyContactEmail
+      )
+    ];
+  }; // eventbox() end
+
+  return {
+    init: function() {
+      console.log("update scripts running");
+      eventBox();
+    } // init fn() close
+  };
+})(updateUIController);
+
+if (window.location.pathname === "/leadGenTool/update-lead") {
+  updateAppController.init();
+}

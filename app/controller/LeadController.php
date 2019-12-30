@@ -16,7 +16,7 @@ class LeadController {
         $this->db = $db;
      }
 
-     public function getAllLeads() {
+      public function getAllLeads() {
 
         try {
             $this->query = "SELECT * FROM companies";
@@ -98,40 +98,47 @@ class LeadController {
      
      public function updateLead($updatedLead, $currentLead) {
 
-        $this->query = "UPDATE companies SET company_name=:company_name, company_contact=:company_contact, contact_role=:contact_role, company_contact_email=:company_contact_email WHERE id=:id";
-        $this->statement = $this->db->conn->prepare($this->query);
+        try {
+            
+            $this->query = "UPDATE companies SET company_name=:company_name, company_contact=:company_contact, contact_role=:contact_role, company_contact_email=:company_contact_email WHERE id=:id";
+            $this->statement = $this->db->conn->prepare($this->query);
 
-        if ($updatedLead->company_name !== NULL) : 
-            $this->statement->bindValue(':company_name', $updatedLead->company_name);
-        else: 
-            $this->statement->bindValue(':company_name', $currentLead->company_name);
-        endif;
+            if ($updatedLead->company_name !== NULL) : 
+                $this->statement->bindValue(':company_name', $updatedLead->company_name);
+            else: 
+                $this->statement->bindValue(':company_name', $currentLead->company_name);
+            endif;
 
-        if ($updatedLead->company_contact !== NULL) : 
-            $this->statement->bindValue(':company_contact', $updatedLead->company_contact);
-        else: 
-            $this->statement->bindValue(':company_contact', $currentLead->company_contact);
-        endif;
+            if ($updatedLead->company_contact !== NULL) : 
+                $this->statement->bindValue(':company_contact', $updatedLead->company_contact);
+            else: 
+                $this->statement->bindValue(':company_contact', $currentLead->company_contact);
+            endif;
 
-        if ($updatedLead->contact_role !== NULL) : 
-            $this->statement->bindValue(':contact_role', $updatedLead->contact_role);
-        else: 
-            $this->statement->bindValue(':contact_role', $currentLead->contact_role);
-        endif;
+            if ($updatedLead->contact_role !== NULL) : 
+                $this->statement->bindValue(':contact_role', $updatedLead->contact_role);
+            else: 
+                $this->statement->bindValue(':contact_role', $currentLead->contact_role);
+            endif;
 
-        if ($updatedLead->company_contact_email !== NULL) : 
-            $this->statement->bindValue(':company_contact_email', $updatedLead->company_contact_email);
-        else: 
-            $this->statement->bindValue(':company_contact_email', $currentLead->company_contact_email);
-        endif;
+            if ($updatedLead->company_contact_email !== NULL) : 
+                $this->statement->bindValue(':company_contact_email', $updatedLead->company_contact_email);
+            else: 
+                $this->statement->bindValue(':company_contact_email', $currentLead->company_contact_email);
+            endif;
 
-        $this->statement->bindValue(':id', $currentLead->id);
+            $this->statement->bindValue(':id', $currentLead->id);
 
-        $this->statement->execute();    
+            $this->statement->execute();   
+
+        } catch (\Throwable $th) {
+            return $_GLOBALS['message'] =  "We're sorry, we couldn't update that lead in the database";
+        }
+ 
      }
 }
     
-//instantiate lead controller
+// instantiate lead controller
 $lead_controller = new LeadController($database);
 
 // set controller actions
