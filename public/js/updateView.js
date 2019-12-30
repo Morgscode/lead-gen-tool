@@ -89,9 +89,9 @@ const updateLeadController = (function() {
         "placeholder",
         `Current contact role: ${domElements.currentContactRole.innerText}`
       );
-      input.classList.add("form-control");
       input.setAttribute("required", "required");
       input.setAttribute("name", "contact-role");
+      input.classList.add("form-control");
 
       formGroup.appendChild(input);
 
@@ -148,6 +148,4 @@ const updateLeadController = (function() {
       appendFormHtml.updateCompanyContactEmail
     )
   ];
-
-  return eventListeners;
 })();

@@ -16,7 +16,7 @@ class LeadController {
         $this->db = $db;
      }
 
-     public function getAllLeads() {
+      public function getAllLeads() {
 
         try {
             $this->query = "SELECT * FROM companies";
@@ -98,6 +98,8 @@ class LeadController {
      
      public function updateLead($updatedLead, $currentLead) {
 
+        try {
+            
         $this->query = "UPDATE companies SET company_name=:company_name, company_contact=:company_contact, contact_role=:contact_role, company_contact_email=:company_contact_email WHERE id=:id";
         $this->statement = $this->db->conn->prepare($this->query);
 
@@ -127,7 +129,11 @@ class LeadController {
 
         $this->statement->bindValue(':id', $currentLead->id);
 
-        $this->statement->execute();    
+        $this->statement->execute();   
+        } catch (\Throwable $th) {
+            return $_GLOBALS['message'] =  "We're sorry, we couldn't update that lead in the database";
+        }
+ 
      }
 }
     

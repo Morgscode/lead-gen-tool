@@ -19,7 +19,7 @@ class UpdatedLead {
             if (!empty($updatedLead['contact-role'])) : 
                 $this->contact_role = filter_var($updatedLead['contact-role'], FILTER_SANITIZE_STRING);
             endif;
-            if (isset($updatedLead['company-contact-email']) && !empty($updatedLead['company-contact-email'])) : 
+            if (!empty($updatedLead['company-contact-email'])) : 
                 $this->company_contact_email = filter_var($updatedLead['company-contact-email'],FILTER_SANITIZE_STRING);
             endif;
         endif;
