@@ -1,4 +1,4 @@
-// -- VIEW
+// -- UPDATE VIEW
 const updateUIController = (function() {
   const evaluateUpdateButtons = () => {
     if (domElements.updateFormButtons.classList.contains("d-none")) {
@@ -141,7 +141,7 @@ const updateUIController = (function() {
   };
 })();
 
-// --- CONTROLLER
+// -- UPDATE CONTROLLER
 const updateAppController = (function(updateViewController) {
   const eventBox = () => {
     let domInterface = updateViewController.getDomInputs();
