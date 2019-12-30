@@ -20,25 +20,49 @@ const updateUIController = (function() {
     currentContactEmail: document.querySelector("#current-contact-email")
   };
 
-  const appendFormHTMLFunctions = {
-    updateCompany: function() {
+  const createFormHTMLFunctions = {
+    createFormGroup: function() {
       let formGroup = document.createElement("div");
       formGroup.classList.add("form-group");
-
+      return formGroup;
+    },
+    createLabel: function(labelParam) {
       let label = document.createElement("label");
-      label.innerText = "Update company name:";
-
-      formGroup.appendChild(label);
-
+      label.innerText = `Update ${labelParam}:`;
+      return label;
+    },
+    createTextInput: function(
+      placeHolderParam,
+      domElementParam,
+      formNameParam
+    ) {
       let input = document.createElement("input");
+      input.classList.add("form-control");
       input.setAttribute("type", "text");
       input.setAttribute(
         "placeholder",
-        `Current company name: ${domElements.currentCompanyName.innerText}`
+        `Current ${placeHolderParam}: ${domElementParam.innerText}`
       );
-      input.classList.add("form-control");
+
       input.setAttribute("required", "required");
-      input.setAttribute("name", "company-name");
+      input.setAttribute("name", formNameParam);
+      return input;
+    }
+  };
+
+  const appendFormHTMLFunctions = {
+    updateCompany: function() {
+      const formGroup = createFormHTMLFunctions.createFormGroup();
+
+      const label = createFormHTMLFunctions.createLabel("company name");
+
+      formGroup.appendChild(label);
+
+      const input = createFormHTMLFunctions.createTextInput(
+        "company name",
+        domElements.currentCompanyName,
+        "company-name"
+      );
 
       formGroup.appendChild(input);
 
@@ -49,23 +73,17 @@ const updateUIController = (function() {
       domElements.updateCompanyName.disabled = true;
     },
     updateCompanyContact: function() {
-      let formGroup = document.createElement("div");
-      formGroup.classList.add("form-group");
+      const formGroup = createFormHTMLFunctions.createFormGroup();
 
-      let label = document.createElement("label");
-      label.innerText = "Update company contact:";
+      const label = createFormHTMLFunctions.createLabel("company contact");
 
       formGroup.appendChild(label);
 
-      let input = document.createElement("input");
-      input.setAttribute("type", "text");
-      input.setAttribute(
-        "placeholder",
-        `Current contact name: ${domElements.currentCompanyContact.innerText}`
+      const input = createFormHTMLFunctions.createTextInput(
+        "company contact",
+        domElements.currentCompanyContact,
+        "company-contact"
       );
-      input.classList.add("form-control");
-      input.setAttribute("required", "required");
-      input.setAttribute("name", "contact-name");
 
       formGroup.appendChild(input);
 
@@ -76,23 +94,17 @@ const updateUIController = (function() {
       domElements.updateContactName.disabled = true;
     },
     updateCompanyContactRole: function() {
-      let formGroup = document.createElement("div");
-      formGroup.classList.add("form-group");
+      const formGroup = createFormHTMLFunctions.createFormGroup();
 
-      let label = document.createElement("label");
-      label.innerText = "Update contact role:";
+      const label = createFormHTMLFunctions.createLabel("contact role");
 
       formGroup.appendChild(label);
 
-      let input = document.createElement("input");
-      input.setAttribute("type", "text");
-      input.setAttribute(
-        "placeholder",
-        `Current contact role: ${domElements.currentContactRole.innerText}`
+      const input = createFormHTMLFunctions.createTextInput(
+        "contact role",
+        domElements.currentContactRole,
+        "contact-role"
       );
-      input.setAttribute("required", "required");
-      input.setAttribute("name", "contact-role");
-      input.classList.add("form-control");
 
       formGroup.appendChild(input);
 
@@ -103,23 +115,17 @@ const updateUIController = (function() {
       domElements.updateContactRole.disabled = true;
     },
     updateCompanyContactEmail: function() {
-      let formGroup = document.createElement("div");
-      formGroup.classList.add("form-group");
+      const formGroup = createFormHTMLFunctions.createFormGroup();
 
-      let label = document.createElement("label");
-      label.innerText = "Update contact email:";
+      const label = createFormHTMLFunctions.createLabel("contact email");
 
       formGroup.appendChild(label);
 
-      let input = document.createElement("input");
-      input.setAttribute("type", "text");
-      input.setAttribute(
-        "placeholder",
-        `Current contact email: ${domElements.currentContactEmail.innerText}`
+      const input = createFormHTMLFunctions.createTextInput(
+        "contact email",
+        domElements.currentContactEmail,
+        "contact-email"
       );
-      input.classList.add("form-control");
-      input.setAttribute("required", "required");
-      input.setAttribute("name", "company-contact-email");
 
       formGroup.appendChild(input);
 
