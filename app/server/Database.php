@@ -11,6 +11,8 @@ class Database {
   public $statement;
   public $tables;
   public $tableExists;
+  public $dbExists;
+  public $databases;
 
   public function __construct() {
     $this->host = 'localhost';
@@ -22,11 +24,71 @@ class Database {
   public function connect() {
     //pdo connection
     try {
-      $this->conn = new PDO("mysql:host=$this->host;dbname=$this->dbname", $this->dbuser, $this->dbpass);
+      $this->conn = new PDO("mysql:host=$this->host;", $this->dbuser, $this->dbpass);
       $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch (PDOException $e) {
       echo 'could not connect to database :/ '.$e->getMessage;
     }
+  }
+
+  public function connectToLeadGenDatabase() {
+
+      try {
+            $this->conn = new PDO("mysql:host=$this->host;dbname=$this->dbname", $this->dbuser, $this->dbpass);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      } catch (PDOException $e) {
+            echo 'could not connect to database :/ '.$e->getMessage;
+      }
+  }
+
+  public function evaluateLeadGenDB() {
+
+    $this->dbExists = false;
+
+    try {
+      
+      $this->query = "SHOW DATABASES";
+      $this->statement = $this->conn->prepare($this->query);
+      $this->statement->execute();
+      $this->databases = $this->statement->fetchAll(PDO::FETCH_ASSOC);
+    
+  } catch (\Throwable $th) {
+      $_GLOBALS['message'] =  "We're sorry, we couldn't find those leads";
+      return $_GLOBALS['message'];
+  } 
+
+  if (!empty($this->databases)) :
+
+    foreach($this->databases as $database) {
+    
+      if ($database['Database'] === 'leadGenDB') :
+       
+      $this->dbExists = true;
+ 
+      endif;
+
+    }
+    
+  endif;
+
+  }
+
+  public function createLeadGenDatabase() {
+
+    try {
+      
+      $this->query = "CREATE DATABASE leadGenDB";
+      $this->statement = $this->conn->prepare($this->query);
+      $this->statement->execute(); 
+      
+     } catch (\Throwable $th) {
+       
+      $_GLOBALS['message'] =  "We couldn't instantiate that databse :/";
+
+     }
+
+     $this->connectToLeadGenDatabase();
+    
   }
 
   public function evaluateTable($tableToEvaluate) {
@@ -39,7 +101,7 @@ class Database {
       
       $this->query = "SHOW TABLES";
       $this->statement = $this->conn->prepare($this->query);
-      $dbtable = $this->statement->execute();
+      $this->statement->execute();
       $this->tables = $this->statement->fetchAll(PDO::FETCH_ASSOC);
     
   } catch (\Throwable $th) {
