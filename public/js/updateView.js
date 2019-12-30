@@ -165,13 +165,16 @@ const updateAppController = (function(updateViewController) {
         appendFormHtml.updateCompanyContactEmail
       )
     ];
-  };
+  }; // eventbox() end
 
   return {
     init: function() {
+      console.log("update scripts running");
       eventBox();
     } // init fn() close
   };
 })(updateUIController);
 
-updateAppController.init();
+if (window.location.pathname === "/leadGenTool/update-lead") {
+  updateAppController.init();
+}
