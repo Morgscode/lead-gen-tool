@@ -1,16 +1,21 @@
+// --- UI CONTROLLER
 const manageLeadUIController = (function() {
   const domElements = {
     notesTab: document.querySelector("#notes"),
     eventsTab: document.querySelector("#events"),
     meetingsTab: document.querySelector("#meetings"),
-    proposalsTab: document.querySelector("#proposals"),
+    //proposalsTab: document.querySelector("#proposals"),
     notesPanel: document.querySelector("#notes-panel"),
     eventsPanel: document.querySelector("#events-panel"),
     meetingsPanel: document.querySelector("#meetings-panel"),
-    proposalsPanel: document.querySelector("#proposals-panel"),
-    addNoteForm: document.querySelector("#note-form"),
+    //proposalsPanel: document.querySelector("#proposals-panel"),
+    noteForm: document.querySelector("#note-form"),
     showNoteForm: document.querySelector("#show-note-form"),
-    closeNoteForm: document.querySelector("#close-note-form")
+    closeNoteForm: document.querySelector("#close-note-form"),
+    showEventForm: document.querySelector("#show-event-form"),
+    closeEventForm: document.querySelector("#close-event-form"),
+    showMeetingForm: document.querySelector("#show-meeting-form"),
+    closeMeetingForm: document.querySelector("#close-meeting-form")
   };
 
   const panelFunctions = {
@@ -61,15 +66,16 @@ const manageLeadUIController = (function() {
       panelFunctions.hidePanel();
       panelFunctions.showActivePanel(e);
     },
-    showAddForm: function(e) {
+    showForm: function(e) {
       manageFormFunctions.showForm(e);
     },
-    hideAddForm: function(e) {
+    hideForm: function(e) {
       manageFormFunctions.hideForm(e);
     }
   };
 })();
 
+// --- DATA CONTROLLER
 const manageLeadDataController = (function() {
   class Note {
     constructor(title, note, id) {
@@ -88,27 +94,47 @@ const manageLeadDataController = (function() {
       this.note = note;
     }
   }
-
-  return {};
 })();
 
+// --- APP CONTROLLER
 const manageLeadAppController = (function(uiCTRL, dataCTRL) {
   const manageLeadEventBox = () => {
     const domElements = uiCTRL.getDomElements();
 
     const panelEventListeners = [
-      domElements.notesTab.addEventListener("click", uiCTRL.showPanel),
-      domElements.eventsTab.addEventListener("click", uiCTRL.showPanel),
-      domElements.meetingsTab.addEventListener("click", uiCTRL.showPanel),
-      domElements.proposalsTab.addEventListener("click", uiCTRL.showPanel),
-      domElements.showNoteForm.addEventListener("click", uiCTRL.showAddForm),
-      domElements.closeNoteForm.addEventListener("click", uiCTRL.hideAddForm)
+      domElements.notesTab,
+      domElements.eventsTab,
+      domElements.meetingsTab
     ];
+
+    panelEventListeners.forEach(element => {
+      element.addEventListener("click", uiCTRL.showPanel);
+    });
+
+    const formEventListeners = [
+      [
+        domElements.showNoteForm,
+        domElements.showEventForm,
+        domElements.showMeetingForm
+      ],
+      [
+        domElements.closeNoteForm,
+        domElements.closeEventForm,
+        domElements.closeMeetingForm
+      ]
+    ];
+
+    formEventListeners[0].forEach(element => {
+      element.addEventListener("click", uiCTRL.showForm);
+    });
+    formEventListeners[1].forEach(element => {
+      element.addEventListener("click", uiCTRL.hideForm);
+    });
   }; // manageLeadEventBox() end
 
   return {
     init: function() {
-      console.log("manage lead scripts running");
+      console.log("manage lead js scripts running");
       manageLeadEventBox();
     }
   };

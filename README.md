@@ -14,9 +14,9 @@ This project isn't a codealong, but I did use the very helpful PHP practitioner 
 
 It's essentially a very simple SPA built in pure PHP. The entry point is the index.php file which requires and instantiates a router, this handles the HTTP requests and will return a view based on the URI. These views give the page access to designated controller Logic which will handle the on-page functionality when further requests are made. 
 
-I've decided to use pure JS for the client-side logic, but this is really just DOM manipulation. There was no real need for jQuery. 
+I've decided to use pure JS for the client-side logic. There was no real need for jQuery. 
 
-The client-side logic uses IIFEs stored within a variable to prevent the scripts from polluting the global scope, as the app progresses, I would like to build in some AJAX functions for handling META data associated to companies. 
+The client-side logic uses IIFEs stored within a variable to prevent the scripts from polluting the global scope. As the logic is specific to each view, methods returned from the relative IFFE are only trigger in that specific view. 
 
 //--- STACK
 
