@@ -72,7 +72,7 @@ const manageLeadAppController = (function() {
     ];
 
     return eventListeners;
-  };
+  }; // manageLeadEventBox() end
 
   return {
     init: function() {
