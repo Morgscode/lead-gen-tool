@@ -149,7 +149,7 @@ const updateUIController = (function() {
 
 // -- UPDATE CONTROLLER
 const updateAppController = (function(updateViewController) {
-  const eventBox = () => {
+  const updateLeadEventBox = () => {
     let domInterface = updateViewController.getDomInputs();
     let appendFormHtml = updateViewController.generateFormHTMLFunctions();
 
@@ -171,12 +171,14 @@ const updateAppController = (function(updateViewController) {
         appendFormHtml.updateCompanyContactEmail
       )
     ];
+
+    return eventListeners;
   }; // eventbox() end
 
   return {
     init: function() {
-      console.log("update scripts running");
-      eventBox();
+      console.log("update lead js scripts running");
+      updateLeadEventBox();
     } // init fn() close
   };
 })(updateUIController);
@@ -184,3 +186,5 @@ const updateAppController = (function(updateViewController) {
 if (window.location.pathname === "/leadGenTool/update-lead") {
   updateAppController.init();
 }
+
+console.log(updateAppController);
