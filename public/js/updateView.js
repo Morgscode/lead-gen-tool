@@ -148,10 +148,10 @@ const updateUIController = (function() {
 })();
 
 // -- UPDATE CONTROLLER
-const updateAppController = (function(updateViewController) {
+const updateAppController = (function(uiCTRL) {
   const updateLeadEventBox = () => {
-    let domInterface = updateViewController.getDomInputs();
-    let appendFormHtml = updateViewController.generateFormHTMLFunctions();
+    let domInterface = uiCTRL.getDomInputs();
+    let appendFormHtml = uiCTRL.generateFormHTMLFunctions();
 
     const eventListeners = [
       domInterface.updateCompanyName.addEventListener(
