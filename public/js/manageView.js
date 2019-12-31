@@ -1,3 +1,4 @@
+// --- UI CONTROLLER
 const manageLeadUIController = (function() {
   const domElements = {
     notesTab: document.querySelector("#notes"),
@@ -70,6 +71,7 @@ const manageLeadUIController = (function() {
   };
 })();
 
+// --- DATA CONTROLLER
 const manageLeadDataController = (function() {
   class Note {
     constructor(title, note, id) {
@@ -88,10 +90,9 @@ const manageLeadDataController = (function() {
       this.note = note;
     }
   }
-
-  return {};
 })();
 
+// --- APP CONTROLLER
 const manageLeadAppController = (function(uiCTRL, dataCTRL) {
   const manageLeadEventBox = () => {
     const domElements = uiCTRL.getDomElements();
@@ -108,7 +109,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
 
   return {
     init: function() {
-      console.log("manage lead scripts running");
+      console.log("manage lead js scripts running");
       manageLeadEventBox();
     }
   };

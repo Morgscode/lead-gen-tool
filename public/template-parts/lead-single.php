@@ -1,4 +1,4 @@
-<section class="mb-4 pb-4">
+<section class="pb-4">
 
     <?php  if ($lead) :  ?>
 

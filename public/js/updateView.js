@@ -1,5 +1,5 @@
 // -- UPDATE VIEW
-const updateUIController = (function() {
+const updateLeadUIController = (function() {
   const evaluateUpdateButtons = () => {
     if (domElements.updateFormButtons.classList.contains("d-none")) {
       domElements.updateFormButtons.classList.remove("d-none");
@@ -148,7 +148,7 @@ const updateUIController = (function() {
 })();
 
 // -- UPDATE CONTROLLER
-const updateAppController = (function(uiCTRL) {
+const updateLeadAppController = (function(uiCTRL) {
   const updateLeadEventBox = () => {
     let domInterface = uiCTRL.getDomInputs();
     let appendFormHtml = uiCTRL.generateFormHTMLFunctions();
@@ -181,8 +181,8 @@ const updateAppController = (function(uiCTRL) {
       updateLeadEventBox();
     } // init fn() close
   };
-})(updateUIController);
+})(updateLeadUIController);
 
 if (window.location.pathname === "/leadGenTool/update-lead") {
-  updateAppController.init();
+  updateLeadAppController.init();
 }

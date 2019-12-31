@@ -4,7 +4,7 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
 
 <?php require_once __DIR__.'/../../public/template-parts/lead-single.php'; ?>
 
-<section class="pt-4 pb-5">
+<section class="pb-4">
     <h3 class="mb-4">Update your lead details by selecting the fields you wish to update</h3>
     <div class="row">
         <div class="col-md-8 col-sm-12">

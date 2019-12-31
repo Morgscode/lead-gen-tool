@@ -60,7 +60,7 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
         <h3 class="mt-4 mb-4">Create, edit and review scheduled meetings with <?= $lead->company_name ?> here</h3>
         <div class="row ml-0 mr-0 pb-4 pt-4">
             <button class="btn btn-primary" type="button" id="see-meetings">See all meetings</button>
-            <button class="btn btn-success ml-auto" type="button" id="add-meeting">Schedule meeting</button>
+            <button class="btn btn-success ml-4" type="button" id="add-meeting">Schedule meeting</button>
         </div>
     </div>
 </section>
@@ -70,7 +70,7 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
         <h3 class="mt-4 mb-4">Create, edit and review planned events for <?= $lead->company_name ?> here</h3>
         <div class="row ml-0 mr-0 pb-4 pt-4">
             <button class="btn btn-primary" type="button" id="see-events">See all events</button>
-            <button class="btn btn-success ml-auto" type="button" id="add-event">Add event</button>
+            <button class="btn btn-success ml-4" type="button" id="add-event">Add event</button>
         </div>
     </div>
 </section>
@@ -80,7 +80,7 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
         <h3 class="mt-4 mb-4">Create, edit and review proposals made to <?= $lead->company_name ?> here</h3>
         <div class="row ml-0 mr-0 pb-4 pt-4">
             <button class="btn btn-primary" type="button" id="see-notes">See all proposals</button>
-            <button class="btn btn-success ml-auto" type="button" id="add-notes">Add proposal</button>
+            <button class="btn btn-success ml-4" type="button" id="add-notes">Add proposal</button>
         </div>
     </div>
 </section>
