@@ -19,6 +19,7 @@
 </script>
 
 <script src="public/js/updateView.js"></script>
+<script src="public/js/manageView.js"></script>
 
 </body>
 

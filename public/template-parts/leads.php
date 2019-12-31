@@ -19,12 +19,16 @@
                 <p style="font-size: 14px; font-weight: 300;"><strong> Contact email: </strong><a
                         href="mailto:<?php echo $lead->company_contact_email; ?>"><?php echo $lead->company_contact_email; ?></a>
                 </p>
-                <div class="row p-3 w-100 d-flex justify-content-between">
-                    <form action="update-lead" method="get">
+                <div class="row p-2 w-100 d-flex justify-content-between">
+                    <form action="update-lead" method="get" class="w-25 mr-auto">
                         <input type="hidden" name="id" value="<?= $lead->id?>">
                         <button style="font-size: 14px;" type="submit" class="btn btn-secondary">Update lead</button>
                     </form>
-                    <form action="delete-lead" method="get">
+                    <form action="manage-lead" method="get" class="w-25">
+                        <input type="hidden" name="id" value="<?= $lead->id?>">
+                        <button style="font-size: 14px;" type="submit" class="btn btn-info">Manage lead</button>
+                    </form>
+                    <form action="delete-lead" method="get" class="w-25 ml-auto">
                         <input type="hidden" name="id" value="<?= $lead->id?>">
                         <button style="font-size: 14px;" type="submit" class="btn btn-danger">Delete lead</button>
                     </form>

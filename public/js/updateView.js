@@ -186,5 +186,3 @@ const updateAppController = (function(updateViewController) {
 if (window.location.pathname === "/leadGenTool/update-lead") {
   updateAppController.init();
 }
-
-console.log(updateAppController);
