@@ -28,7 +28,10 @@ class Router {
             break;
             case 'leadGenTool/lead-updated' :
                 require __DIR__ . '/../views/lead-updated-view.php';
-        break;
+            break;
+            case 'leadGenTool/manage-lead' :
+                require __DIR__ . '/../views/manage-lead-view.php';
+            break;
              default:
                 http_response_code(404);
                     require __DIR__ . '/../views/404.php';

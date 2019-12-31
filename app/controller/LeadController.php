@@ -103,30 +103,16 @@ class LeadController {
             $this->query = "UPDATE companies SET company_name=:company_name, company_contact=:company_contact, contact_role=:contact_role, company_contact_email=:company_contact_email WHERE id=:id";
             $this->statement = $this->db->conn->prepare($this->query);
 
-            if ($updatedLead->company_name !== NULL) : 
-                $this->statement->bindValue(':company_name', $updatedLead->company_name);
-            else: 
-                $this->statement->bindValue(':company_name', $currentLead->company_name);
-            endif;
+            ($updatedLead->company_name !== NULL) ? $this->statement->bindValue(':company_name', $updatedLead->company_name) : $this->statement->bindValue(':company_name', $currentLead->company_name);
+                
+        
+            ($updatedLead->company_contact !== NULL) ?  $this->statement->bindValue(':company_contact', $updatedLead->company_contact) : $this->statement->bindValue(':company_contact', $currentLead->company_contact);
+          
 
-            if ($updatedLead->company_contact !== NULL) : 
-                $this->statement->bindValue(':company_contact', $updatedLead->company_contact);
-            else: 
-                $this->statement->bindValue(':company_contact', $currentLead->company_contact);
-            endif;
-
-            if ($updatedLead->contact_role !== NULL) : 
-                $this->statement->bindValue(':contact_role', $updatedLead->contact_role);
-            else: 
-                $this->statement->bindValue(':contact_role', $currentLead->contact_role);
-            endif;
-
-            if ($updatedLead->company_contact_email !== NULL) : 
-                $this->statement->bindValue(':company_contact_email', $updatedLead->company_contact_email);
-            else: 
-                $this->statement->bindValue(':company_contact_email', $currentLead->company_contact_email);
-            endif;
-
+            ($updatedLead->contact_role !== NULL) ?  $this->statement->bindValue(':contact_role', $updatedLead->contact_role) : $this->statement->bindValue(':contact_role', $currentLead->contact_role);
+           
+            ($updatedLead->company_contact_email !== NULL) ? $this->statement->bindValue(':company_contact_email', $updatedLead->company_contact_email) : $this->statement->bindValue(':company_contact_email', $currentLead->company_contact_email);
+           
             $this->statement->bindValue(':id', $currentLead->id);
 
             $this->statement->execute();   

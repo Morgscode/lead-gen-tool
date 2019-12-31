@@ -148,10 +148,10 @@ const updateUIController = (function() {
 })();
 
 // -- UPDATE CONTROLLER
-const updateAppController = (function(updateViewController) {
-  const eventBox = () => {
-    let domInterface = updateViewController.getDomInputs();
-    let appendFormHtml = updateViewController.generateFormHTMLFunctions();
+const updateAppController = (function(uiCTRL) {
+  const updateLeadEventBox = () => {
+    let domInterface = uiCTRL.getDomInputs();
+    let appendFormHtml = uiCTRL.generateFormHTMLFunctions();
 
     const eventListeners = [
       domInterface.updateCompanyName.addEventListener(
@@ -171,12 +171,14 @@ const updateAppController = (function(updateViewController) {
         appendFormHtml.updateCompanyContactEmail
       )
     ];
+
+    return eventListeners;
   }; // eventbox() end
 
   return {
     init: function() {
-      console.log("update scripts running");
-      eventBox();
+      console.log("update lead js scripts running");
+      updateLeadEventBox();
     } // init fn() close
   };
 })(updateUIController);

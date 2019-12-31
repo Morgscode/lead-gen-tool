@@ -61,12 +61,8 @@ class Database {
 
     foreach($this->databases as $database) {
     
-      if ($database['Database'] == 'leadGenDB') :
+      ($database['Database'] === 'leadGenDB') ? $this->dbExists = true : $this->dbExists = false;
        
-      $this->dbExists = true;
- 
-      endif;
-
     }
     
   endif;
@@ -112,13 +108,9 @@ class Database {
   if (!empty($this->tables)) :
 
     foreach($this->tables as $table) {
-    
-      if ($table['Tables_in_leadgendb'] === $tableToEvaluate) :
-       
-      $this->tableExists = true;
- 
-      endif;
 
+      ($table['Tables_in_leadgendb'] == $tableToEvaluate) ? $this->tableExists = true : $this->tableExists = false;
+    
     }
 
   endif;
