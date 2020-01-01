@@ -4,18 +4,34 @@ const manageLeadUIController = (function() {
     notesTab: document.querySelector("#notes"),
     eventsTab: document.querySelector("#events"),
     meetingsTab: document.querySelector("#meetings"),
-    //proposalsTab: document.querySelector("#proposals"),
     notesPanel: document.querySelector("#notes-panel"),
     eventsPanel: document.querySelector("#events-panel"),
     meetingsPanel: document.querySelector("#meetings-panel"),
-    //proposalsPanel: document.querySelector("#proposals-panel"),
     noteForm: document.querySelector("#note-form"),
     showNoteForm: document.querySelector("#show-note-form"),
     closeNoteForm: document.querySelector("#close-note-form"),
     showEventForm: document.querySelector("#show-event-form"),
     closeEventForm: document.querySelector("#close-event-form"),
     showMeetingForm: document.querySelector("#show-meeting-form"),
-    closeMeetingForm: document.querySelector("#close-meeting-form")
+    closeMeetingForm: document.querySelector("#close-meeting-form"),
+    saveNote: document.querySelector("#save-note"),
+    saveEvent: document.querySelector("#save-event"),
+    saveMeeting: document.querySelector("#save-meeting")
+  };
+
+  const domInputs = {
+    noteTitleInput: document.getElementsByName("note-title")[0],
+    noteInput: document.getElementsByName("note")[0],
+    eventNameInput: document.getElementsByName("event-name")[0],
+    eventAddressInput: document.getElementsByName("event-address")[0],
+    eventDateInput: document.getElementsByName("event-date")[0],
+    eventTimeInput: document.getElementsByName("event-time")[0],
+    eventNoteInput: document.getElementsByName("event-note")[0],
+    meetingNameInput: document.getElementsByName("meeting-name")[0],
+    meetingAddressInput: document.getElementsByName("meeting-address")[0],
+    meetingDateInput: document.getElementsByName("meeting-date")[0],
+    meetingTimeInput: document.getElementsByName("meeting-time")[0],
+    meetingNoteInput: document.getElementsByName("meeting-note")[0]
   };
 
   const panelFunctions = {
@@ -55,12 +71,18 @@ const manageLeadUIController = (function() {
     hideForm: function(e) {
       const target = this.evaluateTargetID(e);
       document.querySelector(`#${target}`).classList.remove("d-block");
+    },
+    getCurrentLeadID: function() {
+      return domElements.noteForm.dataset.companyId;
     }
   };
 
   return {
     getDomElements: function() {
       return domElements;
+    },
+    getDomInputs: function() {
+      return domInputs;
     },
     showPanel: function(e) {
       panelFunctions.hidePanel();
@@ -71,35 +93,94 @@ const manageLeadUIController = (function() {
     },
     hideForm: function(e) {
       manageFormFunctions.hideForm(e);
+    },
+    getLeadID: function() {
+      return manageFormFunctions.getCurrentLeadID();
     }
   };
 })();
 
 // --- DATA CONTROLLER
 const manageLeadDataController = (function() {
-  class Note {
-    constructor(title, note, id) {
-      this.title = title;
+  class CoreDataModule {
+    constructor(companyID, note) {
+      this.companyID = companyID;
       this.note = note;
-      this.companyID = id;
     }
   }
 
-  class Event {
-    constructor(name, address, time, date, note) {
+  class Note extends CoreDataModule {
+    constructor(companyID, note, title) {
+      super(companyID, note);
+      this.title = title;
+    }
+  }
+
+  class Event extends CoreDataModule {
+    constructor(companyID, note, name, address, time, date) {
+      super(companyID, note);
       this.name = name;
       this.address = address;
       this.time = time;
       this.date = date;
-      this.note = note;
     }
   }
+
+  class Meeting extends Event {
+    constructor(companyID, note, name, address, time, date) {
+      super(companyID, note, name, address, time, date);
+    }
+  }
+
+  return {
+    saveNote: function(companyID, noteContent, noteTitle) {
+      const newNote = new Note(companyID, noteContent, noteTitle);
+      return newNote;
+    },
+    saveEvent: function(
+      companyID,
+      eventNote,
+      eventname,
+      eventAddress,
+      eventTime,
+      eventDate
+    ) {
+      const event = new Event(
+        companyID,
+        eventNote,
+        eventname,
+        eventAddress,
+        eventTime,
+        eventDate
+      );
+      return event;
+    },
+    saveMeeting: function(
+      companyID,
+      meetingNote,
+      meetingname,
+      meetingAddress,
+      meetingTime,
+      meetingDate
+    ) {
+      const meeting = new Meeting(
+        companyID,
+        meetingNote,
+        meetingname,
+        meetingAddress,
+        meetingTime,
+        meetingDate
+      );
+      return meeting;
+    }
+  };
 })();
 
 // --- APP CONTROLLER
 const manageLeadAppController = (function(uiCTRL, dataCTRL) {
   const manageLeadEventBox = () => {
     const domElements = uiCTRL.getDomElements();
+    const domInputs = uiCTRL.getDomInputs();
 
     const panelEventListeners = [
       domElements.notesTab,
@@ -129,6 +210,55 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
     });
     formEventListeners[1].forEach(element => {
       element.addEventListener("click", uiCTRL.hideForm);
+    });
+
+    domElements.saveNote.addEventListener("click", () => {
+      const currentLeadID = uiCTRL.getLeadID();
+      const noteTitle = domInputs.noteTitleInput.value;
+      const noteContent = domInputs.noteInput.value;
+      let note = dataCTRL.saveNote(currentLeadID, noteContent, noteTitle);
+      note = JSON.stringify(note);
+      console.log(note);
+    });
+
+    domElements.saveEvent.addEventListener("click", () => {
+      const currentLeadID = uiCTRL.getLeadID();
+      const eventTitle = domInputs.eventNameInput.value;
+      const eventNote = domInputs.eventNoteInput.value;
+      const eventAddress = domInputs.eventAddressInput.value;
+      const eventTime = domInputs.eventTimeInput.value;
+      const eventDate = domInputs.eventDateInput.value;
+
+      let event = dataCTRL.saveEvent(
+        currentLeadID,
+        eventNote,
+        eventTitle,
+        eventAddress,
+        eventTime,
+        eventDate
+      );
+      event = JSON.stringify(event);
+      console.log(event);
+    });
+
+    domElements.saveMeeting.addEventListener("click", () => {
+      const currentLeadID = uiCTRL.getLeadID();
+      const meetingTitle = domInputs.meetingNameInput.value;
+      const meetingNote = domInputs.meetingNoteInput.value;
+      const meetingAddress = domInputs.meetingAddressInput.value;
+      const meetingTime = domInputs.meetingTimeInput.value;
+      const meetingDate = domInputs.meetingDateInput.value;
+
+      let meeting = dataCTRL.saveMeeting(
+        currentLeadID,
+        meetingNote,
+        meetingTitle,
+        meetingAddress,
+        meetingTime,
+        meetingDate
+      );
+      meeting = JSON.stringify(meeting);
+      console.log(meeting);
     });
   }; // manageLeadEventBox() end
 
