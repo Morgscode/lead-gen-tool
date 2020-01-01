@@ -9,6 +9,7 @@ const updateLeadUIController = (function() {
   const domElements = {
     updateForm: document.querySelector("#update-lead-form"),
     updateFormFields: document.querySelector("#update-form-fields"),
+    closeFieldIcon: document.querySelector(".close-field"),
     updateFormButtons: document.querySelector("#update-buttons"),
     updateCompanyName: document.querySelector("#company-name"),
     updateContactName: document.querySelector("#company-contact"),
@@ -21,9 +22,11 @@ const updateLeadUIController = (function() {
   };
 
   const createFormHTMLFunctions = {
-    createFormGroup: function() {
+    createFormGroup: function(fieldID) {
       let formGroup = document.createElement("div");
       formGroup.classList.add("form-group");
+      formGroup.id = `${fieldID}-group`;
+      formGroup.style.position = "relative";
       return formGroup;
     },
     createLabel: function(labelParam) {
@@ -47,12 +50,22 @@ const updateLeadUIController = (function() {
       input.setAttribute("required", "required");
       input.setAttribute("name", formNameParam);
       return input;
+    },
+    createFormClose: function(groupID) {
+      let closeIcon = document.createElement("i");
+      closeIcon.classList.add("fas");
+      closeIcon.classList.add("fa-times");
+      closeIcon.id = `close-${groupID}`;
+      closeIcon.classList.add("close-field");
+      return closeIcon;
     }
   };
 
   const appendFormHTMLFunctions = {
     updateCompany: function() {
-      const formGroup = createFormHTMLFunctions.createFormGroup();
+      const formClose = createFormHTMLFunctions.createFormClose("company-name");
+      const formGroup = createFormHTMLFunctions.createFormGroup("company-name");
+      formGroup.appendChild(formClose);
 
       const label = createFormHTMLFunctions.createLabel("company name");
 
@@ -73,16 +86,24 @@ const updateLeadUIController = (function() {
       domElements.updateCompanyName.disabled = true;
     },
     updateCompanyContact: function() {
-      const formGroup = createFormHTMLFunctions.createFormGroup();
+      const formClose = createFormHTMLFunctions.createFormClose(
+        "company-contact"
+      );
+
+      const formGroup = createFormHTMLFunctions.createFormGroup(
+        "company-contact"
+      );
+
+      formGroup.appendChild(formClose);
 
       const label = createFormHTMLFunctions.createLabel("company contact");
 
       formGroup.appendChild(label);
 
       const input = createFormHTMLFunctions.createTextInput(
-        "company contact",
+        "contact name",
         domElements.currentCompanyContact,
-        "company-contact"
+        "contact-name"
       );
 
       formGroup.appendChild(input);
@@ -94,7 +115,11 @@ const updateLeadUIController = (function() {
       domElements.updateContactName.disabled = true;
     },
     updateCompanyContactRole: function() {
-      const formGroup = createFormHTMLFunctions.createFormGroup();
+      const formClose = createFormHTMLFunctions.createFormClose("contact-role");
+
+      const formGroup = createFormHTMLFunctions.createFormGroup("contact-role");
+
+      formGroup.appendChild(formClose);
 
       const label = createFormHTMLFunctions.createLabel("contact role");
 
@@ -115,7 +140,15 @@ const updateLeadUIController = (function() {
       domElements.updateContactRole.disabled = true;
     },
     updateCompanyContactEmail: function() {
-      const formGroup = createFormHTMLFunctions.createFormGroup();
+      const formClose = createFormHTMLFunctions.createFormClose(
+        "contact-email"
+      );
+
+      const formGroup = createFormHTMLFunctions.createFormGroup(
+        "contact-email"
+      );
+
+      formGroup.appendChild(formClose);
 
       const label = createFormHTMLFunctions.createLabel("contact email");
 
@@ -137,12 +170,37 @@ const updateLeadUIController = (function() {
     }
   };
 
+  const unDisableFormFieldAdd = targetID => {
+    const targetInputArr = targetID.split("-", 3);
+    targetInputArr.pop();
+    const buttonID = targetInputArr.join("-");
+    const targetButton = document.querySelector(`#${buttonID}`);
+    targetButton.disabled = false;
+  };
+
+  const removeFormHTMLFunctions = {
+    removeUpdateFormField: function(e) {
+      const formGroup = domElements.updateFormFields;
+
+      const targetID = e.path[1].id;
+
+      const targetEL = document.querySelector(`#${targetID}`);
+
+      formGroup.removeChild(targetEL);
+
+      unDisableFormFieldAdd(targetID);
+    }
+  };
+
   return {
     getDomInputs: function() {
       return domElements;
     },
     generateFormHTMLFunctions: function() {
       return appendFormHTMLFunctions;
+    },
+    destroyFormHTMLFunctions: function() {
+      return removeFormHTMLFunctions;
     }
   };
 })();
@@ -152,6 +210,7 @@ const updateLeadAppController = (function(uiCTRL) {
   const updateLeadEventBox = () => {
     let domInterface = uiCTRL.getDomInputs();
     let appendFormHtml = uiCTRL.generateFormHTMLFunctions();
+    let removeFormHtml = uiCTRL.destroyFormHTMLFunctions();
 
     const eventListeners = [
       domInterface.updateCompanyName.addEventListener(
@@ -169,7 +228,12 @@ const updateLeadAppController = (function(uiCTRL) {
       domInterface.updateContactEmail.addEventListener(
         "click",
         appendFormHtml.updateCompanyContactEmail
-      )
+      ),
+      domInterface.updateForm.addEventListener("click", e => {
+        if (e.target.classList.contains("close-field")) {
+          removeFormHtml.removeUpdateFormField(e);
+        }
+      })
     ];
 
     return eventListeners;

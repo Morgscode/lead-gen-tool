@@ -9,6 +9,7 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
     <div class="row">
         <div class="col-md-8 col-sm-12">
             <form action="lead-updated" method="post" class="form p-4 card  bg-dark text-light" id="update-lead-form">
+                <i class="fas fa-times close-field d-none"></i>
                 <input type="hidden" name="id" value="<?= $lead->id?>">
                 <input type="hidden" name="_method" value="update">
                 <h4>Update <?= $lead->company_name; ?></h4>
