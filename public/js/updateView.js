@@ -58,115 +58,68 @@ const updateLeadUIController = (function() {
       closeIcon.id = `close-${groupID}`;
       closeIcon.classList.add("close-field");
       return closeIcon;
+    },
+    generateFormGroup: function(idParam, labelParam, inputParam, domElParam) {
+      const formGroup = this.createFormGroup(idParam);
+
+      const formClose = this.createFormClose(idParam);
+
+      formGroup.appendChild(formClose);
+
+      const label = this.createLabel(labelParam);
+
+      formGroup.appendChild(label);
+
+      const input = this.createTextInput(labelParam, inputParam, idParam);
+
+      formGroup.appendChild(input);
+
+      domElements.updateFormFields.appendChild(formGroup);
+
+      evaluateUpdateButtons();
+
+      domElParam.disabled = true;
+
+      return formGroup;
     }
   };
 
   const appendFormHTMLFunctions = {
     updateCompany: function() {
-      const formClose = createFormHTMLFunctions.createFormClose("company-name");
-      const formGroup = createFormHTMLFunctions.createFormGroup("company-name");
-      formGroup.appendChild(formClose);
-
-      const label = createFormHTMLFunctions.createLabel("company name");
-
-      formGroup.appendChild(label);
-
-      const input = createFormHTMLFunctions.createTextInput(
+      const group = createFormHTMLFunctions.generateFormGroup(
+        "company-name",
         "company name",
         domElements.currentCompanyName,
-        "company-name"
+        domElements.updateCompanyName
       );
-
-      formGroup.appendChild(input);
-
-      domElements.updateFormFields.appendChild(formGroup);
-
-      evaluateUpdateButtons();
-
-      domElements.updateCompanyName.disabled = true;
+      return group;
     },
     updateCompanyContact: function() {
-      const formClose = createFormHTMLFunctions.createFormClose(
-        "company-contact"
-      );
-
-      const formGroup = createFormHTMLFunctions.createFormGroup(
-        "company-contact"
-      );
-
-      formGroup.appendChild(formClose);
-
-      const label = createFormHTMLFunctions.createLabel("company contact");
-
-      formGroup.appendChild(label);
-
-      const input = createFormHTMLFunctions.createTextInput(
+      const group = createFormHTMLFunctions.generateFormGroup(
+        "contact-name",
         "contact name",
         domElements.currentCompanyContact,
-        "contact-name"
+        domElements.updateCompanyContact
       );
-
-      formGroup.appendChild(input);
-
-      domElements.updateFormFields.appendChild(formGroup);
-
-      evaluateUpdateButtons();
-
-      domElements.updateContactName.disabled = true;
+      return group;
     },
     updateCompanyContactRole: function() {
-      const formClose = createFormHTMLFunctions.createFormClose("contact-role");
-
-      const formGroup = createFormHTMLFunctions.createFormGroup("contact-role");
-
-      formGroup.appendChild(formClose);
-
-      const label = createFormHTMLFunctions.createLabel("contact role");
-
-      formGroup.appendChild(label);
-
-      const input = createFormHTMLFunctions.createTextInput(
+      const group = createFormHTMLFunctions.generateFormGroup(
+        "contact-role",
         "contact role",
         domElements.currentContactRole,
-        "contact-role"
+        domElements.updateContactRole
       );
-
-      formGroup.appendChild(input);
-
-      domElements.updateFormFields.appendChild(formGroup);
-
-      evaluateUpdateButtons();
-
-      domElements.updateContactRole.disabled = true;
+      return group;
     },
     updateCompanyContactEmail: function() {
-      const formClose = createFormHTMLFunctions.createFormClose(
-        "contact-email"
-      );
-
-      const formGroup = createFormHTMLFunctions.createFormGroup(
-        "contact-email"
-      );
-
-      formGroup.appendChild(formClose);
-
-      const label = createFormHTMLFunctions.createLabel("contact email");
-
-      formGroup.appendChild(label);
-
-      const input = createFormHTMLFunctions.createTextInput(
-        "contact email",
+      const group = createFormHTMLFunctions.generateFormGroup(
+        "company-name",
+        "company name",
         domElements.currentContactEmail,
-        "contact-email"
+        domElements.updateContactEmail
       );
-
-      formGroup.appendChild(input);
-
-      domElements.updateFormFields.appendChild(formGroup);
-
-      evaluateUpdateButtons();
-
-      domElements.updateContactEmail.disabled = true;
+      return group;
     }
   };
 
