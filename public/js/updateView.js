@@ -61,25 +61,15 @@ const updateLeadUIController = (function() {
     },
     generateFormGroup: function(idParam, labelParam, inputParam, domElParam) {
       const formGroup = this.createFormGroup(idParam);
-
       const formClose = this.createFormClose(idParam);
-
       formGroup.appendChild(formClose);
-
       const label = this.createLabel(labelParam);
-
       formGroup.appendChild(label);
-
       const input = this.createTextInput(labelParam, inputParam, idParam);
-
       formGroup.appendChild(input);
-
       domElements.updateFormFields.appendChild(formGroup);
-
       evaluateUpdateButtons();
-
       domElParam.disabled = true;
-
       return formGroup;
     }
   };
