@@ -119,13 +119,20 @@ class Database {
 
   public function createTable($table) {
 
-    if ($table === "companies") :
+    if ($table === "companies"):
 
       $this->query = "CREATE TABLE companies ( `id` INT NOT NULL AUTO_INCREMENT , `company_name` VARCHAR(255) NOT NULL , `company_contact` VARCHAR(255) NOT NULL , `contact_role` VARCHAR(255) NOT NULL , `company_contact_email` VARCHAR(255) NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB";
-    
 
-    endif;
+    elseif ($table === "notes"):
 
+      $this->query = "CREATE TABLE `leadGenDB`.`notes` ( `id` INT NOT NULL AUTO_INCREMENT , `compmany_id` INT NOT NULL , `note_title` VARCHAR(255) NOT NULL , `note_content` TEXT NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+
+    else: 
+
+      echo 'no table boss :/';
+
+    endif; 
+      
      try {
 
       $this->statement = $this->conn->prepare($this->query);

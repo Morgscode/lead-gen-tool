@@ -29,3 +29,12 @@ if ($database->tableExists === false) :
     $database->createTable("companies");
 
 endif;
+
+//evaulate if notes table exists in leadGenDB
+$database->evaluateTable("notes");
+
+if ($database->tableExists === false) : 
+    
+    $database->createTable("notes");
+
+endif;
