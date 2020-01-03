@@ -132,6 +132,29 @@ const manageLeadDataController = (function() {
     }
   }
 
+  const ajaxPromise = (url, method) => {
+    // return a new promise.
+    return new Promise((resolve, reject) => {
+      // do the usual XHR stuff
+      var req = new XMLHttpRequest();
+      req.open(method, url);
+      req.onload = () => {
+        if (req.status == 200) {
+          resolve(req.response);
+        } else {
+          reject({status: req.status,
+            statusText: req.stausText });
+        }
+      };
+      // handle network errors
+      req.onerror = () => {
+        reject({status: req.status,
+          statusText: req.stausText });
+      }; // make the request
+      req.send();
+    });
+  };
+
   return {
     saveNote: function(companyID, noteContent, noteTitle) {
       const newNote = new Note(companyID, noteContent, noteTitle);
@@ -172,6 +195,9 @@ const manageLeadDataController = (function() {
         meetingDate
       );
       return meeting;
+    },
+    promiseRequest: function(url, action, data) {
+      return ajaxPromise(url, action, data);
     }
   };
 })();
@@ -217,8 +243,17 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       const noteTitle = domInputs.noteTitleInput.value;
       const noteContent = domInputs.noteInput.value;
       let note = dataCTRL.saveNote(currentLeadID, noteContent, noteTitle);
-      note = JSON.stringify(note);
       console.log(note);
+      let url = `app/controllers/NoteController.php?action=addNote&title=${noteTitle}&note=${noteContent}&companyID=${currentLeadID}`;
+      url = url.toString();
+      console.log(url)
+      const data = dataCTRL.promiseRequest(
+        url,
+        "POST"
+      );
+      data.then(res => {
+        console.log(res);
+      });
     });
 
     domElements.saveEvent.addEventListener("click", () => {
@@ -237,7 +272,6 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
         eventTime,
         eventDate
       );
-      event = JSON.stringify(event);
       console.log(event);
     });
 
@@ -257,7 +291,6 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
         meetingTime,
         meetingDate
       );
-      meeting = JSON.stringify(meeting);
       console.log(meeting);
     });
   }; // manageLeadEventBox() end
