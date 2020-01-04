@@ -6,7 +6,6 @@ class Note
     public $note_title;
     public $note_content;
    
-
     public function __construct($newNote) {
         if (!empty($newNote) && $newNote = $_REQUEST) :
             $this->company_id  = filter_var($newNote['companyID'], FILTER_SANITIZE_STRING);

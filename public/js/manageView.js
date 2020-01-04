@@ -132,11 +132,11 @@ const manageLeadDataController = (function() {
     }
   }
 
-  const ajaxPromise = (url, method) => {
+  let ajaxPromise = (url, method) => {
     // return a new promise.
     return new Promise((resolve, reject) => {
       // do the usual XHR stuff
-      var req = new XMLHttpRequest();
+      let req = new XMLHttpRequest();
 
       req.open(method, url, true);
       req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
