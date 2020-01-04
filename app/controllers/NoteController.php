@@ -10,24 +10,30 @@ class NoteController {
         $this->db = $db;
     }
 
+  
+
     public function createNote($newNote) {
 
-        
+        var_dump($this->db);
+
+        var_dump($newNote);
 
         if (!empty($newNote) && $newNote == $_REQUEST) : 
 
            try {
-                   $this->query = "INSERT INTO notes (company_id, note_content, note_title) VALUES (:company_id, :note, :note_title)";
+            var_dump(' try runs');
+                   $this->query = "INSERT INTO `leadGenDB`.`notes` (company_id, note_content, note_title) VALUES (:company_id, :note, :note_title)";
+                   var_dump('query assignment runs');
                    $this->statement = $this->db->conn->prepare($this->query);
-                   $this->statement->bindParam(":company_id", $newNote["companyID"]);
-                   $this->statement->bindParam(":note", $newNote["note"]);
-                   $this->statement->bindParam(":note_title", $newNote["title"]);
-
-                   var_dump($this->statement);
-                
+                   var_dump('prepare runs');
+                   $this->statement->bindValue(":company_id", $newNote["companyID"]);
+                   var_dump('bind id runs');
+                   $this->statement->bindValue(":note", $newNote["note"]);
+                   var_dump('bind note runs');
+                   $this->statement->bindValue(":note_title", $newNote["title"]);
+                   var_dump('bind title runs');
                    $this->statement->execute();
-
-                   echo 'statement executed';
+                   var_dump('execute runs');
                 
                    exit;
                    

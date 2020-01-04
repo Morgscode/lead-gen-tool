@@ -17,7 +17,7 @@ $database->createLeadGenDatabase();
 
 else : 
 // connect to db if (exists)
-$database->connectToLeadGenDatabase();
+$database = $database->connectToLeadGenDatabase();
 
 endif;
 

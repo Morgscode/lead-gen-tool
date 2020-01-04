@@ -137,19 +137,18 @@ const manageLeadDataController = (function() {
     return new Promise((resolve, reject) => {
       // do the usual XHR stuff
       var req = new XMLHttpRequest();
+
       req.open(method, url);
       req.onload = () => {
         if (req.status == 200) {
           resolve(req.response);
         } else {
-          reject({status: req.status,
-            statusText: req.stausText });
+          reject({ status: req.status, statusText: req.statusText });
         }
       };
       // handle network errors
       req.onerror = () => {
-        reject({status: req.status,
-          statusText: req.stausText });
+        reject({ status: req.status, statusText: req.statusText });
       }; // make the request
       req.send();
     });
@@ -246,11 +245,8 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       console.log(note);
       let url = `app/controllers/NoteController.php?action=addNote&title=${noteTitle}&note=${noteContent}&companyID=${currentLeadID}`;
       url = url.toString();
-      console.log(url)
-      const data = dataCTRL.promiseRequest(
-        url,
-        "POST"
-      );
+      console.log(url);
+      const data = dataCTRL.promiseRequest(url, "POST");
       data.then(res => {
         console.log(res);
       });
