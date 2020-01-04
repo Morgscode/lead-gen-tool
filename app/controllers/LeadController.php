@@ -36,7 +36,7 @@ class LeadController {
          if (!empty($newLead)) : 
 
             try {
-                    $this->query = "INSERT INTO companies (company_name, company_contact,contact_role, company_contact_email) VALUES (:company_name, :company_contact, :contact_role, :company_contact_email)";
+                    $this->query = "INSERT INTO `companies` (company_name, company_contact,contact_role, company_contact_email) VALUES (:company_name, :company_contact, :contact_role, :company_contact_email)";
                     $this->statement = $this->db->conn->prepare($this->query);
                     $this->statement->bindValue(":company_name", $newLead->company_name);
                     $this->statement->bindValue(":company_contact", $newLead->company_contact);

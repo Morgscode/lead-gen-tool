@@ -138,7 +138,8 @@ const manageLeadDataController = (function() {
       // do the usual XHR stuff
       var req = new XMLHttpRequest();
 
-      req.open(method, url);
+      req.open(method, url, true);
+      req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       req.onload = () => {
         if (req.status == 200) {
           resolve(req.response);
@@ -246,8 +247,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       let url = `app/controllers/NoteController.php?action=addNote&title=${noteTitle}&note=${noteContent}&companyID=${currentLeadID}`;
       url = url.toString();
       console.log(url);
-      const data = dataCTRL.promiseRequest(url, "POST");
-      data.then(res => {
+      dataCTRL.promiseRequest(url, "post").then(res => {
         console.log(res);
       });
     });
