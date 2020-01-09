@@ -16,6 +16,8 @@ class NoteController {
 
     public function createNote($newNote) {
 
+        var_dump($this->db->conn);
+
         if (!empty($newNote)) :
 
             var_dump($newNote);
@@ -23,7 +25,7 @@ class NoteController {
             try {
 
                 var_dump(' try runs');
-                $this->query = "INSERT INTO `notes` (company_id, note_content, note_title) VALUES (:company_id, :note,
+                $this->query = "INSERT INTO notes (company_id, note_content, note_title) VALUES (:company_id, :note,
                 :note_title)";
                 var_dump('query assignment runs');
                 $this->statement = $this->db->conn->prepare($this->query);

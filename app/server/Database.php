@@ -125,7 +125,7 @@ class Database {
 
     elseif ($table === "notes"):
 
-      $this->query = "CREATE TABLE `leadGenDB`.`notes` ( `id` INT NOT NULL AUTO_INCREMENT , `compmany_id` INT NOT NULL , `note_title` VARCHAR(255) NOT NULL , `note_content` TEXT NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+      $this->query = "CREATE TABLE `leadGenDB`.`notes` ( `id` INT NOT NULL AUTO_INCREMENT , `company_id` INT NOT NULL , `note_title` VARCHAR(255) NOT NULL , `note_content` TEXT NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
     else: 
 
