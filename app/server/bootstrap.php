@@ -6,13 +6,13 @@ require_once 'Database.php';
 $database = new Database();
 
 //connect to db server
-$dbconn = $database->connect();
+$database->connect();
 
 //evaluate if leadGenDB exists
 $database->evaluateLeadGenDB();
 
 if ($database->dbExists === false ) : 
-//create db if !exists
+//create db if (!exists) and connect
 $database->createLeadGenDatabase();
 
 else : 
@@ -38,3 +38,4 @@ if ($database->tableExists === false) :
     $database->createTable("notes");
 
 endif;
+

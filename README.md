@@ -18,7 +18,14 @@ I've decided to use pure JS for the client-side logic. There was no real need fo
 
 The client-side logic uses IIFEs stored within a variable to prevent the scripts from polluting the global scope. As the logic is specific to each view, methods returned from the relative IFFE are only trigger in that specific view. 
 
+For the 'manage-view' I decided to veer of the original logic course, and instead of building a seperate view for each manage action, I'm now working towards creating a client-side ajax app which will handle the CRUD requests for each action, utilising js promises. As this is a personal project for self-teaching, I feel it's totally acceptable to do this as I'm pushing myself to learn newer concepts, instead of adding extra functionality, by using a 'frame-work' that I'm already comfortable with.  
+
 //--- STACK
 
 SERVER-SIDE -> PHP, MySQL (PDO)
 CLIENT-SIDE -> Bootstrap, JS
+
+//--- requirements
+PHP, MySQL environment with root access to mysql server
+
+Google chrome (Jquery still holds value for DOM traversing across browsers, so this will not work in firefox as the e.path values vary across the browsers).
