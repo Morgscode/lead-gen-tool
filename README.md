@@ -24,3 +24,8 @@ For the 'manage-view' I decided to veer of the original logic course, and instea
 
 SERVER-SIDE -> PHP, MySQL (PDO)
 CLIENT-SIDE -> Bootstrap, JS
+
+//--- requirements
+PHP, MySQL environment with root access to mysql server
+
+Google chrome (Jquery still holds value for DOM traversing across browsers, so this will not work in firefox as the e.path values vary across the browsers).
