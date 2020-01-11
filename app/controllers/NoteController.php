@@ -24,7 +24,7 @@ class NoteController {
 
             try {
 
-                var_dump(' try runs');
+                var_dump('try runs');
                 $this->query = "INSERT INTO notes (company_id, note_content, note_title) VALUES (:company_id, :note,
                 :note_title)";
                 var_dump('query assignment runs');

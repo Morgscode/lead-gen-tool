@@ -74,6 +74,13 @@ const manageLeadUIController = (function() {
     },
     getCurrentLeadID: function() {
       return domElements.noteForm.dataset.companyId;
+    },
+    clearCurrentForm: function(e) {
+      const currentForm = e.path[2].elements;
+      console.log(currentForm);
+      for (const childNode of currentForm) {
+        childNode.value = "";
+      }
     }
   };
 
@@ -96,6 +103,9 @@ const manageLeadUIController = (function() {
     },
     getLeadID: function() {
       return manageFormFunctions.getCurrentLeadID();
+    },
+    clearForm: function(e) {
+      return manageFormFunctions.clearCurrentForm(e);
     }
   };
 })();
@@ -136,22 +146,23 @@ const manageLeadDataController = (function() {
     // return a new promise.
     return new Promise((resolve, reject) => {
       // do the usual XHR stuff
-      let req = new XMLHttpRequest();
+      let xhr = new XMLHttpRequest();
 
-      req.open(method, url, true);
-      req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      req.onload = () => {
-        if (req.status == 200) {
-          resolve(req.response);
+      xhr.open(method, url, true);
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.setRequestHeader("Accept", "application/x-www-form-urlencoded");
+      xhr.onload = () => {
+        if (xhr.status == 200) {
+          resolve(xhr.response);
         } else {
-          reject({ status: req.status, statusText: req.statusText });
+          reject({ status: xhr.status, statusText: xhr.statusText });
         }
       };
       // handle network errors
-      req.onerror = () => {
-        reject({ status: req.status, statusText: req.statusText });
+      xhr.onerror = () => {
+        reject({ status: xhr.status, statusText: xhr.statusText });
       }; // make the request
-      req.send();
+      xhr.send();
     });
   };
 
@@ -238,7 +249,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       element.addEventListener("click", uiCTRL.hideForm);
     });
 
-    domElements.saveNote.addEventListener("click", () => {
+    domElements.saveNote.addEventListener("click", e => {
       const currentLeadID = uiCTRL.getLeadID();
       const noteTitle = domInputs.noteTitleInput.value;
       const noteContent = domInputs.noteInput.value;
@@ -250,6 +261,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       dataCTRL.promiseRequest(url, "post").then(res => {
         console.log(res);
       });
+      uiCTRL.clearForm(e);
     });
 
     domElements.saveEvent.addEventListener("click", () => {
