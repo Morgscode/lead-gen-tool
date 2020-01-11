@@ -1,5 +1,6 @@
 // --- UI CONTROLLER
 const manageLeadUIController = (function() {
+  //define domelements which allow for interactivity
   const domElements = {
     notesTab: document.querySelector("#notes"),
     eventsTab: document.querySelector("#events"),
@@ -17,11 +18,12 @@ const manageLeadUIController = (function() {
     saveNote: document.querySelector("#save-note"),
     saveEvent: document.querySelector("#save-event"),
     saveMeeting: document.querySelector("#save-meeting"),
-    clearNote: document.querySelector("#clear-note-form"),
-    clearEvent: document.querySelector("#clear-event-form"),
-    clearMeeting: document.querySelector("#clear-meeting-form")
+    clearNoteForm: document.querySelector("#clear-note-form"),
+    clearEventForm: document.querySelector("#clear-event-form"),
+    clearMeetingForm: document.querySelector("#clear-meeting-form")
   };
 
+  //define dom elements which hold data
   const domInputs = {
     noteTitleInput: document.getElementsByName("note-title")[0],
     noteInput: document.getElementsByName("note")[0],
@@ -37,6 +39,7 @@ const manageLeadUIController = (function() {
     meetingNoteInput: document.getElementsByName("meeting-note")[0]
   };
 
+  //define panel functions
   const panelFunctions = {
     hidePanel: function() {
       const activeTab = document.querySelector("ul.nav-tabs a.nav-link.active");
@@ -59,6 +62,7 @@ const manageLeadUIController = (function() {
     }
   };
 
+  // define form functions
   const manageFormFunctions = {
     evaluateTargetID: function(e) {
       const showBtnID = e.target.id;
@@ -85,7 +89,7 @@ const manageLeadUIController = (function() {
       }
     }
   };
-
+  // make defined classes available
   return {
     getDomElements: function() {
       return domElements;
@@ -114,6 +118,7 @@ const manageLeadUIController = (function() {
 
 // --- DATA CONTROLLER
 const manageLeadDataController = (function() {
+  // define client-side data models
   class CoreDataModule {
     constructor(companyID, note) {
       this.companyID = companyID;
@@ -144,6 +149,7 @@ const manageLeadDataController = (function() {
     }
   }
 
+  // define client-side ajax request
   let ajaxPromise = (url, method) => {
     // return a new promise.
     return new Promise((resolve, reject) => {
@@ -168,6 +174,7 @@ const manageLeadDataController = (function() {
     });
   };
 
+  // make defined classes available
   return {
     saveNote: function(companyID, noteContent, noteTitle) {
       const newNote = new Note(companyID, noteContent, noteTitle);
@@ -217,10 +224,13 @@ const manageLeadDataController = (function() {
 
 // --- APP CONTROLLER
 const manageLeadAppController = (function(uiCTRL, dataCTRL) {
+  //create an event listener box
   const manageLeadEventBox = () => {
+    // make domInputs available to app controller
     const domElements = uiCTRL.getDomElements();
     const domInputs = uiCTRL.getDomInputs();
 
+    // add event listners to panels
     const panelEventListeners = [
       domElements.notesTab,
       domElements.eventsTab,
@@ -231,6 +241,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       element.addEventListener("click", uiCTRL.showPanel);
     });
 
+    // add event listeners to forms
     const formEventListeners = [
       [
         domElements.showNoteForm,
@@ -242,7 +253,11 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
         domElements.closeEventForm,
         domElements.closeMeetingForm
       ],
-      [domElements.clearNote, domElements.clearEvent, domElements.clearMeeting]
+      [
+        domElements.clearNoteForm,
+        domElements.clearEventForm,
+        domElements.clearMeetingForm
+      ]
     ];
 
     formEventListeners[0].forEach(element => {
@@ -255,6 +270,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       element.addEventListener("click", uiCTRL.clearForm);
     });
 
+    // save data functions
     domElements.saveNote.addEventListener("click", e => {
       const currentLeadID = uiCTRL.getLeadID();
       const noteTitle = domInputs.noteTitleInput.value;
@@ -310,6 +326,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
   }; // manageLeadEventBox() end
 
   return {
+    //make event listeners available to window
     init: function() {
       console.log("manage lead js scripts running");
       manageLeadEventBox();
