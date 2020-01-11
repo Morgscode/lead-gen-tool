@@ -52,7 +52,7 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
     </div>
 </section>
 
-<section id="meetings-panel" class="d-none">
+<section id="meetings-panel" class="d-none pb-4">
     <div class="card p-4">
         <h3 class="mt-4 mb-4">Create, edit and review scheduled meetings with <?= $lead->company_name ?> here</h3>
         <div class="row ml-0 mr-0 pb-4 pt-4">
@@ -100,7 +100,7 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
     </div>
 </section>
 
-<section id="events-panel" class="d-none">
+<section id="events-panel" class="d-none pb-4">
     <div class="card p-4">
         <h3 class="mt-4 mb-4">Create, edit and review planned events for <?= $lead->company_name ?> here</h3>
         <div class="row ml-0 mr-0 pb-4 pt-4">

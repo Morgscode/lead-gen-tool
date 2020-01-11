@@ -16,8 +16,6 @@ class NoteController {
 
     public function createNote($newNote) {
 
-        var_dump($this->db->conn);
-
         if (!empty($newNote)) :
 
             var_dump($newNote);

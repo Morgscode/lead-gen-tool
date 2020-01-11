@@ -77,9 +77,9 @@ class Database {
       $this->statement = $this->conn->prepare($this->query);
       $this->statement->execute(); 
       
-     } catch (\Throwable $th) {
+     } catch (PDOException $e) {
        
-      $_GLOBALS['message'] =  "We couldn't instantiate that database :/";
+      echo "We couldn't instantiate that databse :/ ".$e->getMessage();
 
      }
 
@@ -100,9 +100,8 @@ class Database {
       $this->statement->execute();
       $this->tables = $this->statement->fetchAll(PDO::FETCH_ASSOC);
     
-  } catch (\Throwable $th) {
-      $_GLOBALS['message'] =  "We're sorry, we couldn't find those leads";
-      return $_GLOBALS['message'];
+  } catch (PDOException $e) {
+     echo "We couldn't find any leads :/ ".$e->getMessage();
   } 
 
   if (!empty($this->tables)) :
@@ -129,7 +128,7 @@ class Database {
 
     else: 
 
-      echo 'no table boss :/';
+      echo 'I can\'t create that table boss :/';
 
     endif; 
       
@@ -139,9 +138,9 @@ class Database {
  
       $this->statement->execute(); 
       
-     } catch (\Throwable $th) {
+     } catch (PDOException $e) {
        
-      $_GLOBALS['message'] =  "We couldn't instantiate that databse :/";
+      echo "There was a problem creating one of the necessary db tables :/ ".$e->getMessage();
 
      }
   }  
