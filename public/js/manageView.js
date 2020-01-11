@@ -16,7 +16,10 @@ const manageLeadUIController = (function() {
     closeMeetingForm: document.querySelector("#close-meeting-form"),
     saveNote: document.querySelector("#save-note"),
     saveEvent: document.querySelector("#save-event"),
-    saveMeeting: document.querySelector("#save-meeting")
+    saveMeeting: document.querySelector("#save-meeting"),
+    clearNote: document.querySelector("#clear-note-form"),
+    clearEvent: document.querySelector("#clear-event-form"),
+    clearMeeting: document.querySelector("#clear-meeting-form")
   };
 
   const domInputs = {
@@ -77,7 +80,6 @@ const manageLeadUIController = (function() {
     },
     clearCurrentForm: function(e) {
       const currentForm = e.path[2].elements;
-      console.log(currentForm);
       for (const childNode of currentForm) {
         childNode.value = "";
       }
@@ -239,7 +241,8 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
         domElements.closeNoteForm,
         domElements.closeEventForm,
         domElements.closeMeetingForm
-      ]
+      ],
+      [domElements.clearNote, domElements.clearEvent, domElements.clearMeeting]
     ];
 
     formEventListeners[0].forEach(element => {
@@ -247,6 +250,9 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
     });
     formEventListeners[1].forEach(element => {
       element.addEventListener("click", uiCTRL.hideForm);
+    });
+    formEventListeners[2].forEach(element => {
+      element.addEventListener("click", uiCTRL.clearForm);
     });
 
     domElements.saveNote.addEventListener("click", e => {
