@@ -276,10 +276,8 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       const noteTitle = domInputs.noteTitleInput.value;
       const noteContent = domInputs.noteInput.value;
       let note = dataCTRL.saveNote(currentLeadID, noteContent, noteTitle);
-      console.log(note);
-      let url = `app/controllers/NoteController.php?action=addNote&title=${noteTitle}&note=${noteContent}&companyID=${currentLeadID}`;
+      let url = `app/controllers/NoteController.php?action=addNote&title=${note.title}&note=${note.note}&companyID=${note.companyID}`;
       url = url.toString();
-      console.log(url);
       dataCTRL.promiseRequest(url, "post").then(res => {
         console.log(res);
       });

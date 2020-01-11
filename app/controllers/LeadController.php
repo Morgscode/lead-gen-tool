@@ -24,9 +24,8 @@ class LeadController {
             $this->statement->execute();
    
             return $this->statement->fetchAll(PDO::FETCH_OBJ);
-        } catch (\Throwable $th) {
-            $_GLOBALS['message'] =  "We're sorry, we couldn't find those leads";
-            return $_GLOBALS;
+        } catch (PDOException $e) {
+            var_dump($e->getMessage());
         } 
 
      }
@@ -49,8 +48,8 @@ class LeadController {
                     
              } catch (PDOException $e) {
                  
-               return $_GLOBALS['message'] = "We're sorry, we couldn't complete that request :/".$e->getMessage();
                header("Location: lead-created");
+               var_dump($e->getMessage());
                exit;
              } 
 
@@ -69,8 +68,8 @@ class LeadController {
 
                 return $lead = $this->statement->fetch(PDO::FETCH_OBJ);
                 
-            } catch (\Throwable $th) {
-                return $_GLOBALS['message'] =  "We're sorry, we couldn't find those leads";
+            } catch (PDOException $e) {
+                var_dump($e->getMessage());
             } 
           
         endif;    
@@ -88,9 +87,9 @@ class LeadController {
                 header("Location: /leadGenTool");
                 exit;
 
-            } catch (\Throwable $th) {
+            } catch (PDOException $e) {
 
-                return $_GLOBALS['message'] =  "We're sorry, we couldn't delete that lead from the database";
+                var_dump($e->getMessage());
             } 
 
             header("Location:  ");
@@ -117,8 +116,8 @@ class LeadController {
 
             $this->statement->execute();   
 
-        } catch (\Throwable $th) {
-            return $_GLOBALS['message'] =  "We're sorry, we couldn't update that lead in the database";
+        } catch (PDOException $e) {
+            var_dump($e->getMessage());
         }
  
      }
