@@ -16,6 +16,7 @@ const manageLeadUIController = (function() {
     showMeetingForm: document.querySelector("#show-meeting-form"),
     closeMeetingForm: document.querySelector("#close-meeting-form"),
     saveNote: document.querySelector("#save-note"),
+    getNotes: document.querySelector("#see-notes"),
     saveEvent: document.querySelector("#save-event"),
     saveMeeting: document.querySelector("#save-meeting"),
     clearNoteForm: document.querySelector("#clear-note-form"),
@@ -270,6 +271,20 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       element.addEventListener("click", uiCTRL.clearForm);
     });
 
+    // grab data functions
+    domElements.getNotes.addEventListener("click", () => {
+      const currentLeadID = uiCTRL.getLeadID();
+      let url = `app/controllers/NoteController.php?action=getNotes&id=${currentLeadID}`;
+      url = url.toString();
+      const notes = dataCTRL.promiseRequest(url, "get").then(res => {
+        return res;
+      });
+      notes.then(promiseValue => {
+        notesArr = JSON.parse(promiseValue);
+        console.log(notesArr);
+      });
+    });
+
     // save data functions
     domElements.saveNote.addEventListener("click", e => {
       const currentLeadID = uiCTRL.getLeadID();
@@ -278,9 +293,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       let note = dataCTRL.saveNote(currentLeadID, noteContent, noteTitle);
       let url = `app/controllers/NoteController.php?action=addNote&title=${note.title}&note=${note.note}&companyID=${note.companyID}`;
       url = url.toString();
-      dataCTRL.promiseRequest(url, "post").then(res => {
-        console.log(res);
-      });
+      dataCTRL.promiseRequest(url, "post");
       uiCTRL.clearForm(e);
     });
 
