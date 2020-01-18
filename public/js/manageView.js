@@ -125,23 +125,23 @@ const manageLeadUIController = (function() {
     createNoteTimeStamp: function(note) {
       const timeStamp = document.createElement("p");
       timeStamp.innerHTML = note.created_at;
+      timeStamp.classList.add("mb-0");
       return timeStamp;
     }
   };
 
-  const appendNoteHTMLFunctions = {
-    appendNote: function(note) {
-      const noteWrapper = createNoteHTMLFunctions.createNoteWrapper(note);
-      const noteTitle = createNoteHTMLFunctions.createNoteTitle(note);
-      const noteContent = createNoteHTMLFunctions.createNoteContent(note);
-      const noteTimeStamp = createNoteHTMLFunctions.createNoteTimeStamp(note);
-      const noteElements = [noteTitle, noteContent, noteTimeStamp];
-      noteElements.forEach(element => {
-        noteWrapper.appendChild(element);
-        domElements.companyNotesSection.appendChild(noteWrapper);
-      });
-    }
+  const appendNote = note => {
+    const noteWrapper = createNoteHTMLFunctions.createNoteWrapper(note);
+    const noteTitle = createNoteHTMLFunctions.createNoteTitle(note);
+    const noteContent = createNoteHTMLFunctions.createNoteContent(note);
+    const noteTimeStamp = createNoteHTMLFunctions.createNoteTimeStamp(note);
+    const noteElements = [noteTitle, noteContent, noteTimeStamp];
+    noteElements.forEach(element => {
+      noteWrapper.appendChild(element);
+      domElements.companyNotesSection.appendChild(noteWrapper);
+    });
   };
+
   // make defined classes available
   return {
     getDomElements: function() {
@@ -170,7 +170,7 @@ const manageLeadUIController = (function() {
       return manageFormFunctions.clearCurrentForm(e);
     },
     appendCompanyNote: function(note) {
-      appendNoteHTMLFunctions.appendNote(note);
+      return appendNote(note);
     }
   };
 })();

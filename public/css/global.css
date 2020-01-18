@@ -13,3 +13,7 @@ ul.nav-tabs a.nav-link:hover {
   cursor: pointer;
   transform: scale(1.25) rotate(90deg);
 }
+
+#company-notes {
+  border-left: 1px solid #f1f1f1;
+}

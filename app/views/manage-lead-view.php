@@ -50,7 +50,7 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
             </div>
         </form>
         <section class="p-4 d-none" id="company-notes-section">
-            <h2 class="mb-3"><?= $lead->company_name;?> notes</h2>
+            <h2 class="mb-3 ml-5"><?= $lead->company_name;?> notes</h2>
             <div class="row justify-content-center" id="company-notes"></div>
         </section>
     </div>

@@ -12,7 +12,7 @@ const updateLeadUIController = (function() {
     closeFieldIcon: document.querySelector(".close-field"),
     updateFormButtons: document.querySelector("#update-buttons"),
     updateCompanyName: document.querySelector("#company-name"),
-    updateContactName: document.querySelector("#company-contact"),
+    updateContactName: document.querySelector("#contact-name"),
     updateContactRole: document.querySelector("#contact-role"),
     updateContactEmail: document.querySelector("#contact-email"),
     currentCompanyName: document.querySelector("#current-company-name"),
@@ -89,7 +89,7 @@ const updateLeadUIController = (function() {
         "contact-name",
         "contact name",
         domElements.currentCompanyContact,
-        domElements.updateCompanyContact
+        domElements.updateContactName
       );
       return group;
     },
@@ -104,8 +104,8 @@ const updateLeadUIController = (function() {
     },
     updateCompanyContactEmail: function() {
       const group = createFormHTMLFunctions.generateFormGroup(
-        "company-name",
-        "company name",
+        "contact-email",
+        "contact email",
         domElements.currentContactEmail,
         domElements.updateContactEmail
       );
@@ -128,7 +128,7 @@ const updateLeadUIController = (function() {
       const targetID = e.path[1].id;
 
       const targetEL = document.querySelector(`#${targetID}`);
-
+      console.log(targetEL);
       formGroup.removeChild(targetEL);
 
       unDisableFormFieldAdd(targetID);
