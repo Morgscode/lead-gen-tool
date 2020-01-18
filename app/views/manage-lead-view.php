@@ -49,6 +49,9 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
                     note</button>
             </div>
         </form>
+        <section class="p-4 d-none" id="company-notes">
+            <h2><?= $lead->company_name;?> notes</h2>
+        </section>
     </div>
 </section>
 
@@ -97,6 +100,9 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
                     meeting</button>
             </div>
         </form>
+        <section class="p-4 d-none" id="company-meetings">
+            <h2>Scheduled meetings with <?= $lead->company_name;?></h2>
+        </section>
     </div>
 </section>
 
@@ -145,6 +151,9 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
                     event</button>
             </div>
         </form>
+        <section class="p-4 d-none" id="company-events">
+            <h2>Planned events with <?= $lead->company_name;?></h2>
+        </section>
     </div>
 </section>
 

@@ -52,7 +52,6 @@ class LeadController {
                var_dump($e->getMessage());
                exit;
              } 
-
          endif; 
      }
 
@@ -71,9 +70,7 @@ class LeadController {
             } catch (PDOException $e) {
                 var_dump($e->getMessage());
             } 
-          
         endif;    
-
      }
 
      public function deleteLead($id) {
@@ -88,7 +85,6 @@ class LeadController {
                 exit;
 
             } catch (PDOException $e) {
-
                 var_dump($e->getMessage());
             } 
 
@@ -104,10 +100,8 @@ class LeadController {
 
             ($updatedLead->company_name !== NULL) ? $this->statement->bindValue(':company_name', $updatedLead->company_name) : $this->statement->bindValue(':company_name', $currentLead->company_name);
                 
-        
             ($updatedLead->company_contact !== NULL) ?  $this->statement->bindValue(':company_contact', $updatedLead->company_contact) : $this->statement->bindValue(':company_contact', $currentLead->company_contact);
           
-
             ($updatedLead->contact_role !== NULL) ?  $this->statement->bindValue(':contact_role', $updatedLead->contact_role) : $this->statement->bindValue(':contact_role', $currentLead->contact_role);
            
             ($updatedLead->company_contact_email !== NULL) ? $this->statement->bindValue(':company_contact_email', $updatedLead->company_contact_email) : $this->statement->bindValue(':company_contact_email', $currentLead->company_contact_email);

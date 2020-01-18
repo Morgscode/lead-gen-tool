@@ -2,6 +2,7 @@
 const manageLeadUIController = (function() {
   //define domelements which allow for interactivity
   const domElements = {
+    currentLeadForm: document.querySelector("#current-lead"),
     notesTab: document.querySelector("#notes"),
     eventsTab: document.querySelector("#events"),
     meetingsTab: document.querySelector("#meetings"),
@@ -60,6 +61,10 @@ const manageLeadUIController = (function() {
       const newActivePanel = document.querySelector(`#${e.target.id}-panel`);
       newActivePanel.classList.remove("d-none");
       newActivePanel.classList.add("d-block");
+    },
+    showMetaPanel: function(e) {
+      const metaPanel = e.target.parentNode.offsetParent.children[3];
+      metaPanel.classList.remove("d-none");
     }
   };
 
@@ -81,7 +86,7 @@ const manageLeadUIController = (function() {
       document.querySelector(`#${target}`).classList.remove("d-block");
     },
     getCurrentLeadID: function() {
-      return domElements.noteForm.dataset.companyId;
+      return domElements.currentLeadForm.dataset.leadId;
     },
     clearCurrentForm: function(e) {
       const currentForm = e.path[2].elements;
@@ -101,6 +106,9 @@ const manageLeadUIController = (function() {
     showPanel: function(e) {
       panelFunctions.hidePanel();
       panelFunctions.showActivePanel(e);
+    },
+    showAddMetaPanel: function(e) {
+      panelFunctions.showMetaPanel(e);
     },
     showForm: function(e) {
       manageFormFunctions.showForm(e);
@@ -272,17 +280,18 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
     });
 
     // grab data functions
-    domElements.getNotes.addEventListener("click", () => {
+    domElements.getNotes.addEventListener("click", e => {
       const currentLeadID = uiCTRL.getLeadID();
       let url = `app/controllers/NoteController.php?action=getNotes&id=${currentLeadID}`;
       url = url.toString();
       const notes = dataCTRL.promiseRequest(url, "get").then(res => {
         return res;
       });
-      notes.then(promiseValue => {
-        notesArr = JSON.parse(promiseValue);
+      notes.then(res => {
+        const notesArr = JSON.parse(res);
         console.log(notesArr);
       });
+      uiCTRL.showAddMetaPanel(e);
     });
 
     // save data functions

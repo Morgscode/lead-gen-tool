@@ -18,7 +18,7 @@ class NoteController {
 
         try {
             
-            $this->query = "SELECT id, note_title, note_content FROM notes WHERE :id = company_id";
+            $this->query = "SELECT id, note_title, note_content, created_at FROM notes WHERE :id = company_id";
             
             $this->statement = $this->db->conn->prepare($this->query);
             $this->statement->bindValue(":id", $company_id);
@@ -31,7 +31,6 @@ class NoteController {
         } catch (PDOException $e) {
             var_dump($e->getMessage());
         } 
-
      }
 
     public function createNote($newNote) {
@@ -52,15 +51,10 @@ class NoteController {
                 exit;
 
             } catch (PDOException $e) {
-
                 var_dump($e->getMessage());
-
                 exit;
-
             }
-
         endif;
-
     }
 }
 

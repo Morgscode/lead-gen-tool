@@ -3,7 +3,7 @@
     <?php  if ($lead) :  ?>
 
     <div class="row mb-4 p-4 justify-content-center border-bottom">
-        <div class="card col-md-8 col-sm-12 p-4 flex-column" id="current-lead">
+        <div class="card col-md-8 col-sm-12 p-4 flex-column" id="current-lead" data-lead-id="<?= $lead->id; ?>">
             <h3 class="text-bold mb-3"><strong>Company: </strong><span
                     id="current-company-name"><?= $lead->company_name; ?></span>
             </h3>
