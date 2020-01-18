@@ -17,3 +17,8 @@ ul.nav-tabs a.nav-link:hover {
 #company-notes {
   border-left: 1px solid #f1f1f1;
 }
+
+#update-form-fields {
+  display: flex;
+  flex-direction: column;
+}

@@ -331,6 +331,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
 
     // grab data functions
     domElements.getNotes.addEventListener("click", e => {
+      e.target.innerHTML = "Refresh notes";
       domElements.companyNotesSection.style.minHeight = "450px";
       domElements.companyNotesSection.innerHTML = "";
       const currentLeadID = uiCTRL.getLeadID();
