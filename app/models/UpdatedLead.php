@@ -21,7 +21,7 @@ class UpdatedLead {
                 $this->contact_role = filter_var($updatedLead['contact-role'], FILTER_SANITIZE_STRING);
             endif;
             if (!empty($updatedLead['company-contact-email']) && $updatedLead == $_POST) : 
-                $this->company_contact_email = filter_var($updatedLead['company-contact-email'],FILTER_SANITIZE_STRING);
+                $this->company_contact_email = filter_var($updatedLead['company-contact-email'], FILTER_SANITIZE_EMAIL);
             endif;
         endif;
     }

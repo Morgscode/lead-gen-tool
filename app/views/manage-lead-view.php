@@ -49,10 +49,14 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
                     note</button>
             </div>
         </form>
+        <section class="p-4 d-none" id="company-notes-section">
+            <h2 class="mb-3 ml-5"><?= $lead->company_name;?> notes</h2>
+            <div class="row justify-content-center" id="company-notes"></div>
+        </section>
     </div>
 </section>
 
-<section id="meetings-panel" class="d-none">
+<section id="meetings-panel" class="d-none pb-4">
     <div class="card p-4">
         <h3 class="mt-4 mb-4">Create, edit and review scheduled meetings with <?= $lead->company_name ?> here</h3>
         <div class="row ml-0 mr-0 pb-4 pt-4">
@@ -97,10 +101,13 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
                     meeting</button>
             </div>
         </form>
+        <section class="p-4 d-none" id="company-meetings">
+            <h2>Scheduled meetings with <?= $lead->company_name;?></h2>
+        </section>
     </div>
 </section>
 
-<section id="events-panel" class="d-none">
+<section id="events-panel" class="d-none pb-4">
     <div class="card p-4">
         <h3 class="mt-4 mb-4">Create, edit and review planned events for <?= $lead->company_name ?> here</h3>
         <div class="row ml-0 mr-0 pb-4 pt-4">
@@ -145,6 +152,9 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
                     event</button>
             </div>
         </form>
+        <section class="p-4 d-none" id="company-events">
+            <h2>Planned events with <?= $lead->company_name;?></h2>
+        </section>
     </div>
 </section>
 

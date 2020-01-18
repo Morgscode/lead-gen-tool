@@ -14,43 +14,47 @@ class NoteController {
         $this->db = $db;
     }
 
-    public function createNote($newNote) {
+    public function getAllNotes($company_id) {
 
-        var_dump($this->db->conn);
+        try {
+            
+            $this->query = "SELECT id, note_title, note_content, created_at FROM notes WHERE :id = company_id ORDER BY created_at DESC";
+            
+            $this->statement = $this->db->conn->prepare($this->query);
+            $this->statement->bindValue(":id", $company_id);
+            $this->statement->execute();
+            
+            $notes = $this->statement->fetchAll(PDO::FETCH_OBJ);
+         
+            echo json_encode($notes);
+
+        } catch (PDOException $e) {
+            var_dump($e->getMessage());
+        } 
+     }
+
+    public function createNote($newNote) {
 
         if (!empty($newNote)) :
 
             var_dump($newNote);
 
             try {
-
-                var_dump('try runs');
                 $this->query = "INSERT INTO notes (company_id, note_content, note_title) VALUES (:company_id, :note,
                 :note_title)";
-                var_dump('query assignment runs');
                 $this->statement = $this->db->conn->prepare($this->query);
-                var_dump('prepare runs');
                 $this->statement->bindValue(":company_id", $newNote->company_id);
-                var_dump('bind id runs');
-                $this->statement->bindValue(":note", $newNote->note_title);
-                var_dump('bind note runs');
-                $this->statement->bindValue(":note_title", $newNote->note_content);
-                var_dump('bind title runs');
+                $this->statement->bindValue(":note", $newNote->note_content);
+                $this->statement->bindValue(":note_title", $newNote->note_title);
                 $this->statement->execute();
-                var_dump('execute runs');
-
+                
                 exit;
 
             } catch (PDOException $e) {
-
-                return $_GLOBALS['message'] = "We're sorry, we couldn't complete that request :/";
-
+                var_dump($e->getMessage());
                 exit;
-
             }
-
         endif;
-
     }
 }
 
@@ -60,5 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_REQUEST['action'] == 'addNote') {
 
     $newNote = new Note($_REQUEST);
     $note_controller->createNote($newNote);
+    
+} elseif ($_SERVER['REQUEST_METHOD'] == 'GET' && $_REQUEST['action'] == 'getNotes') {
+
+    $note_controller->getAllNotes($_REQUEST['id']);
     
 }

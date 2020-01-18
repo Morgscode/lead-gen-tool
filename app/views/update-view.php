@@ -25,7 +25,7 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
         <div class="col-md-4 col-sm-12">
             <div class="card p-4  bg-dark text-light">
                 <button id="company-name" class="btn btn-secondary form-control mb-3">Company name</button>
-                <button id="company-contact" class="btn btn-secondary form-control mb-3">Company contact</button>
+                <button id="contact-name" class="btn btn-secondary form-control mb-3">Company contact</button>
                 <button id="contact-role" class="btn btn-secondary form-control mb-3">Contact role</button>
                 <button id="contact-email" class="btn btn-secondary form-control">Company contact
                     email</button>

@@ -1,6 +1,8 @@
 // --- UI CONTROLLER
 const manageLeadUIController = (function() {
+  //define domelements which allow for interactivity
   const domElements = {
+    currentLeadForm: document.querySelector("#current-lead"),
     notesTab: document.querySelector("#notes"),
     eventsTab: document.querySelector("#events"),
     meetingsTab: document.querySelector("#meetings"),
@@ -8,6 +10,7 @@ const manageLeadUIController = (function() {
     eventsPanel: document.querySelector("#events-panel"),
     meetingsPanel: document.querySelector("#meetings-panel"),
     noteForm: document.querySelector("#note-form"),
+    companyNotesSection: document.querySelector("#company-notes"),
     showNoteForm: document.querySelector("#show-note-form"),
     closeNoteForm: document.querySelector("#close-note-form"),
     showEventForm: document.querySelector("#show-event-form"),
@@ -15,13 +18,15 @@ const manageLeadUIController = (function() {
     showMeetingForm: document.querySelector("#show-meeting-form"),
     closeMeetingForm: document.querySelector("#close-meeting-form"),
     saveNote: document.querySelector("#save-note"),
+    getNotes: document.querySelector("#see-notes"),
     saveEvent: document.querySelector("#save-event"),
     saveMeeting: document.querySelector("#save-meeting"),
-    clearNote: document.querySelector("#clear-note-form"),
-    clearEvent: document.querySelector("#clear-event-form"),
-    clearMeeting: document.querySelector("#clear-meeting-form")
+    clearNoteForm: document.querySelector("#clear-note-form"),
+    clearEventForm: document.querySelector("#clear-event-form"),
+    clearMeetingForm: document.querySelector("#clear-meeting-form")
   };
 
+  //define dom elements which hold data
   const domInputs = {
     noteTitleInput: document.getElementsByName("note-title")[0],
     noteInput: document.getElementsByName("note")[0],
@@ -37,6 +42,7 @@ const manageLeadUIController = (function() {
     meetingNoteInput: document.getElementsByName("meeting-note")[0]
   };
 
+  //define panel functions
   const panelFunctions = {
     hidePanel: function() {
       const activeTab = document.querySelector("ul.nav-tabs a.nav-link.active");
@@ -56,9 +62,16 @@ const manageLeadUIController = (function() {
       const newActivePanel = document.querySelector(`#${e.target.id}-panel`);
       newActivePanel.classList.remove("d-none");
       newActivePanel.classList.add("d-block");
+    },
+    showMetaPanel: function(e) {
+      const metaPanel = e.target.parentNode.offsetParent.children[3];
+      if (metaPanel.classList.contains("d-none")) {
+        metaPanel.classList.remove("d-none");
+      }
     }
   };
 
+  // define form functions
   const manageFormFunctions = {
     evaluateTargetID: function(e) {
       const showBtnID = e.target.id;
@@ -76,7 +89,7 @@ const manageLeadUIController = (function() {
       document.querySelector(`#${target}`).classList.remove("d-block");
     },
     getCurrentLeadID: function() {
-      return domElements.noteForm.dataset.companyId;
+      return domElements.currentLeadForm.dataset.leadId;
     },
     clearCurrentForm: function(e) {
       const currentForm = e.path[2].elements;
@@ -86,6 +99,50 @@ const manageLeadUIController = (function() {
     }
   };
 
+  const createNoteHTMLFunctions = {
+    createNoteWrapper: function(note) {
+      const noteWrapper = document.createElement("div");
+      noteWrapper.classList.add("card");
+      noteWrapper.classList.add("col-md-10");
+      noteWrapper.classList.add("col-sm-12");
+      noteWrapper.classList.add("p-2");
+      noteWrapper.classList.add("mb-3");
+      noteWrapper.id = note.id;
+      return noteWrapper;
+    },
+    createNoteTitle: function(note) {
+      const title = document.createElement("h5");
+      title.innerHTML = note.note_title;
+      title.classList.add("mb-2");
+      return title;
+    },
+    createNoteContent: function(note) {
+      const content = document.createElement("p");
+      content.innerHTML = note.note_content;
+      content.classList.add("mb-2");
+      return content;
+    },
+    createNoteTimeStamp: function(note) {
+      const timeStamp = document.createElement("p");
+      timeStamp.innerHTML = note.created_at;
+      timeStamp.classList.add("mb-0");
+      return timeStamp;
+    }
+  };
+
+  const appendNote = note => {
+    const noteWrapper = createNoteHTMLFunctions.createNoteWrapper(note);
+    const noteTitle = createNoteHTMLFunctions.createNoteTitle(note);
+    const noteContent = createNoteHTMLFunctions.createNoteContent(note);
+    const noteTimeStamp = createNoteHTMLFunctions.createNoteTimeStamp(note);
+    const noteElements = [noteTitle, noteContent, noteTimeStamp];
+    noteElements.forEach(element => {
+      noteWrapper.appendChild(element);
+      domElements.companyNotesSection.appendChild(noteWrapper);
+    });
+  };
+
+  // make defined classes available
   return {
     getDomElements: function() {
       return domElements;
@@ -96,6 +153,9 @@ const manageLeadUIController = (function() {
     showPanel: function(e) {
       panelFunctions.hidePanel();
       panelFunctions.showActivePanel(e);
+    },
+    showAddMetaPanel: function(e) {
+      panelFunctions.showMetaPanel(e);
     },
     showForm: function(e) {
       manageFormFunctions.showForm(e);
@@ -108,12 +168,16 @@ const manageLeadUIController = (function() {
     },
     clearForm: function(e) {
       return manageFormFunctions.clearCurrentForm(e);
+    },
+    appendCompanyNote: function(note) {
+      return appendNote(note);
     }
   };
 })();
 
 // --- DATA CONTROLLER
 const manageLeadDataController = (function() {
+  // define client-side data models
   class CoreDataModule {
     constructor(companyID, note) {
       this.companyID = companyID;
@@ -144,6 +208,7 @@ const manageLeadDataController = (function() {
     }
   }
 
+  // define client-side ajax request
   let ajaxPromise = (url, method) => {
     // return a new promise.
     return new Promise((resolve, reject) => {
@@ -168,6 +233,7 @@ const manageLeadDataController = (function() {
     });
   };
 
+  // make defined classes available
   return {
     saveNote: function(companyID, noteContent, noteTitle) {
       const newNote = new Note(companyID, noteContent, noteTitle);
@@ -217,10 +283,13 @@ const manageLeadDataController = (function() {
 
 // --- APP CONTROLLER
 const manageLeadAppController = (function(uiCTRL, dataCTRL) {
+  //create an event listener box
   const manageLeadEventBox = () => {
+    // make domInputs available to app controller
     const domElements = uiCTRL.getDomElements();
     const domInputs = uiCTRL.getDomInputs();
 
+    // add event listners to panels
     const panelEventListeners = [
       domElements.notesTab,
       domElements.eventsTab,
@@ -231,6 +300,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       element.addEventListener("click", uiCTRL.showPanel);
     });
 
+    // add event listeners to forms
     const formEventListeners = [
       [
         domElements.showNoteForm,
@@ -242,7 +312,11 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
         domElements.closeEventForm,
         domElements.closeMeetingForm
       ],
-      [domElements.clearNote, domElements.clearEvent, domElements.clearMeeting]
+      [
+        domElements.clearNoteForm,
+        domElements.clearEventForm,
+        domElements.clearMeetingForm
+      ]
     ];
 
     formEventListeners[0].forEach(element => {
@@ -255,15 +329,34 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       element.addEventListener("click", uiCTRL.clearForm);
     });
 
+    // grab data functions
+    domElements.getNotes.addEventListener("click", e => {
+      domElements.companyNotesSection.style.minHeight = "450px";
+      domElements.companyNotesSection.innerHTML = "";
+      const currentLeadID = uiCTRL.getLeadID();
+      let url = `app/controllers/NoteController.php?action=getNotes&id=${currentLeadID}`;
+      url = url.toString();
+      const notes = dataCTRL.promiseRequest(url, "get").then(res => {
+        console.log(res);
+        return res;
+      });
+      notes.then(data => {
+        const notesArr = JSON.parse(data);
+        notesArr.forEach(note => {
+          uiCTRL.appendCompanyNote(note);
+        });
+      });
+      uiCTRL.showAddMetaPanel(e);
+    });
+
+    // save data functions
     domElements.saveNote.addEventListener("click", e => {
       const currentLeadID = uiCTRL.getLeadID();
       const noteTitle = domInputs.noteTitleInput.value;
       const noteContent = domInputs.noteInput.value;
       let note = dataCTRL.saveNote(currentLeadID, noteContent, noteTitle);
-      console.log(note);
-      let url = `app/controllers/NoteController.php?action=addNote&title=${noteTitle}&note=${noteContent}&companyID=${currentLeadID}`;
+      let url = `app/controllers/NoteController.php?action=addNote&title=${note.title}&note=${note.note}&companyID=${note.companyID}`;
       url = url.toString();
-      console.log(url);
       dataCTRL.promiseRequest(url, "post").then(res => {
         console.log(res);
       });
@@ -310,6 +403,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
   }; // manageLeadEventBox() end
 
   return {
+    //make event listeners available to window
     init: function() {
       console.log("manage lead js scripts running");
       manageLeadEventBox();

@@ -24,9 +24,8 @@ class LeadController {
             $this->statement->execute();
    
             return $this->statement->fetchAll(PDO::FETCH_OBJ);
-        } catch (\Throwable $th) {
-            $_GLOBALS['message'] =  "We're sorry, we couldn't find those leads";
-            return $_GLOBALS;
+        } catch (PDOException $e) {
+            var_dump($e->getMessage());
         } 
 
      }
@@ -49,11 +48,10 @@ class LeadController {
                     
              } catch (PDOException $e) {
                  
-               return $_GLOBALS['message'] = "We're sorry, we couldn't complete that request :/".$e->getMessage();
                header("Location: lead-created");
+               var_dump($e->getMessage());
                exit;
              } 
-
          endif; 
      }
 
@@ -69,12 +67,10 @@ class LeadController {
 
                 return $lead = $this->statement->fetch(PDO::FETCH_OBJ);
                 
-            } catch (\Throwable $th) {
-                return $_GLOBALS['message'] =  "We're sorry, we couldn't find those leads";
+            } catch (PDOException $e) {
+                var_dump($e->getMessage());
             } 
-          
         endif;    
-
      }
 
      public function deleteLead($id) {
@@ -88,9 +84,8 @@ class LeadController {
                 header("Location: /leadGenTool");
                 exit;
 
-            } catch (\Throwable $th) {
-
-                return $_GLOBALS['message'] =  "We're sorry, we couldn't delete that lead from the database";
+            } catch (PDOException $e) {
+                var_dump($e->getMessage());
             } 
 
             header("Location:  ");
@@ -105,10 +100,8 @@ class LeadController {
 
             ($updatedLead->company_name !== NULL) ? $this->statement->bindValue(':company_name', $updatedLead->company_name) : $this->statement->bindValue(':company_name', $currentLead->company_name);
                 
-        
             ($updatedLead->company_contact !== NULL) ?  $this->statement->bindValue(':company_contact', $updatedLead->company_contact) : $this->statement->bindValue(':company_contact', $currentLead->company_contact);
           
-
             ($updatedLead->contact_role !== NULL) ?  $this->statement->bindValue(':contact_role', $updatedLead->contact_role) : $this->statement->bindValue(':contact_role', $currentLead->contact_role);
            
             ($updatedLead->company_contact_email !== NULL) ? $this->statement->bindValue(':company_contact_email', $updatedLead->company_contact_email) : $this->statement->bindValue(':company_contact_email', $currentLead->company_contact_email);
@@ -117,8 +110,8 @@ class LeadController {
 
             $this->statement->execute();   
 
-        } catch (\Throwable $th) {
-            return $_GLOBALS['message'] =  "We're sorry, we couldn't update that lead in the database";
+        } catch (PDOException $e) {
+            var_dump($e->getMessage());
         }
  
      }

@@ -42,16 +42,19 @@ class Database {
       $this->statement->execute();
       $this->databases = $this->statement->fetchAll(PDO::FETCH_ASSOC);
     
-  } catch (\Throwable $th) {
-      $_GLOBALS['message'] =  "We're sorry, we couldn't find those leads";
-      return $_GLOBALS['message'];
+  } catch (PDOException $e) {
+     echo 'we couldn\'t find any databases on the server :/ '.$e->getMessage;
   } 
 
   if (!empty($this->databases)) :
 
     foreach($this->databases as $database) {
+
+      if ($this->dbExists == false) : 
     
       ($database['Database'] === 'leadGenDB') ? $this->dbExists = true : $this->dbExists = false;
+
+      endif;
        
     }
     
@@ -60,6 +63,8 @@ class Database {
   }
 
   public function connectToLeadGenDatabase() {
+
+    $this->dbExists = true;
 
     try {
           $this->conn = new PDO("mysql:host=$this->host;dbname=$this->dbname", $this->dbuser, $this->dbpass);
@@ -77,9 +82,9 @@ class Database {
       $this->statement = $this->conn->prepare($this->query);
       $this->statement->execute(); 
       
-     } catch (\Throwable $th) {
+     } catch (PDOException $e) {
        
-      $_GLOBALS['message'] =  "We couldn't instantiate that database :/";
+      echo "We couldn't instantiate that databse :/ ".$e->getMessage();
 
      }
 
@@ -100,16 +105,19 @@ class Database {
       $this->statement->execute();
       $this->tables = $this->statement->fetchAll(PDO::FETCH_ASSOC);
     
-  } catch (\Throwable $th) {
-      $_GLOBALS['message'] =  "We're sorry, we couldn't find those leads";
-      return $_GLOBALS['message'];
+  } catch (PDOException $e) {
+     echo "We couldn't find any leads :/ ".$e->getMessage();
   } 
 
   if (!empty($this->tables)) :
 
     foreach($this->tables as $table) {
 
+      if ($this->tableExists == false) : 
+
       ($table['Tables_in_leadgendb'] == $tableToEvaluate) ? $this->tableExists = true : $this->tableExists = false;
+
+      endif;
     
     }
 
@@ -122,14 +130,14 @@ class Database {
     if ($table === "companies"):
 
       $this->query = "CREATE TABLE companies ( `id` INT NOT NULL AUTO_INCREMENT , `company_name` VARCHAR(255) NOT NULL , `company_contact` VARCHAR(255) NOT NULL , `contact_role` VARCHAR(255) NOT NULL , `company_contact_email` VARCHAR(255) NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB";
-
+      
     elseif ($table === "notes"):
 
       $this->query = "CREATE TABLE `leadGenDB`.`notes` ( `id` INT NOT NULL AUTO_INCREMENT , `company_id` INT NOT NULL , `note_title` VARCHAR(255) NOT NULL , `note_content` TEXT NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
     else: 
 
-      echo 'no table boss :/';
+      echo 'I can\'t create that table boss :/';
 
     endif; 
       
@@ -139,9 +147,9 @@ class Database {
  
       $this->statement->execute(); 
       
-     } catch (\Throwable $th) {
+     } catch (PDOException $e) {
        
-      $_GLOBALS['message'] =  "We couldn't instantiate that databse :/";
+      echo "There was a problem creating one of the necessary db tables :/ ".$e->getMessage();
 
      }
   }  
