@@ -10,6 +10,7 @@ const manageLeadUIController = (function() {
     eventsPanel: document.querySelector("#events-panel"),
     meetingsPanel: document.querySelector("#meetings-panel"),
     noteForm: document.querySelector("#note-form"),
+    companyNotesSection: document.querySelector("#company-notes"),
     showNoteForm: document.querySelector("#show-note-form"),
     closeNoteForm: document.querySelector("#close-note-form"),
     showEventForm: document.querySelector("#show-event-form"),
@@ -64,7 +65,9 @@ const manageLeadUIController = (function() {
     },
     showMetaPanel: function(e) {
       const metaPanel = e.target.parentNode.offsetParent.children[3];
-      metaPanel.classList.remove("d-none");
+      if (metaPanel.classList.contains("d-none")) {
+        metaPanel.classList.remove("d-none");
+      }
     }
   };
 
@@ -95,6 +98,50 @@ const manageLeadUIController = (function() {
       }
     }
   };
+
+  const createNoteHTMLFunctions = {
+    createNoteWrapper: function(note) {
+      const noteWrapper = document.createElement("div");
+      noteWrapper.classList.add("card");
+      noteWrapper.classList.add("col-md-10");
+      noteWrapper.classList.add("col-sm-12");
+      noteWrapper.classList.add("p-2");
+      noteWrapper.classList.add("mb-3");
+      noteWrapper.id = note.id;
+      return noteWrapper;
+    },
+    createNoteTitle: function(note) {
+      const title = document.createElement("h5");
+      title.innerHTML = note.note_title;
+      title.classList.add("mb-2");
+      return title;
+    },
+    createNoteContent: function(note) {
+      const content = document.createElement("p");
+      content.innerHTML = note.note_content;
+      content.classList.add("mb-2");
+      return content;
+    },
+    createNoteTimeStamp: function(note) {
+      const timeStamp = document.createElement("p");
+      timeStamp.innerHTML = note.created_at;
+      return timeStamp;
+    }
+  };
+
+  const appendNoteHTMLFunctions = {
+    appendNote: function(note) {
+      const noteWrapper = createNoteHTMLFunctions.createNoteWrapper(note);
+      const noteTitle = createNoteHTMLFunctions.createNoteTitle(note);
+      const noteContent = createNoteHTMLFunctions.createNoteContent(note);
+      const noteTimeStamp = createNoteHTMLFunctions.createNoteTimeStamp(note);
+      const noteElements = [noteTitle, noteContent, noteTimeStamp];
+      noteElements.forEach(element => {
+        noteWrapper.appendChild(element);
+        domElements.companyNotesSection.appendChild(noteWrapper);
+      });
+    }
+  };
   // make defined classes available
   return {
     getDomElements: function() {
@@ -121,6 +168,9 @@ const manageLeadUIController = (function() {
     },
     clearForm: function(e) {
       return manageFormFunctions.clearCurrentForm(e);
+    },
+    appendCompanyNote: function(note) {
+      appendNoteHTMLFunctions.appendNote(note);
     }
   };
 })();
@@ -281,15 +331,20 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
 
     // grab data functions
     domElements.getNotes.addEventListener("click", e => {
+      domElements.companyNotesSection.style.minHeight = "450px";
+      domElements.companyNotesSection.innerHTML = "";
       const currentLeadID = uiCTRL.getLeadID();
       let url = `app/controllers/NoteController.php?action=getNotes&id=${currentLeadID}`;
       url = url.toString();
       const notes = dataCTRL.promiseRequest(url, "get").then(res => {
+        console.log(res);
         return res;
       });
-      notes.then(res => {
-        const notesArr = JSON.parse(res);
-        console.log(notesArr);
+      notes.then(data => {
+        const notesArr = JSON.parse(data);
+        notesArr.forEach(note => {
+          uiCTRL.appendCompanyNote(note);
+        });
       });
       uiCTRL.showAddMetaPanel(e);
     });
@@ -302,7 +357,9 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       let note = dataCTRL.saveNote(currentLeadID, noteContent, noteTitle);
       let url = `app/controllers/NoteController.php?action=addNote&title=${note.title}&note=${note.note}&companyID=${note.companyID}`;
       url = url.toString();
-      dataCTRL.promiseRequest(url, "post");
+      dataCTRL.promiseRequest(url, "post").then(res => {
+        console.log(res);
+      });
       uiCTRL.clearForm(e);
     });
 

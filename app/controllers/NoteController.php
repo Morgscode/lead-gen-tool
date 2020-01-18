@@ -18,7 +18,7 @@ class NoteController {
 
         try {
             
-            $this->query = "SELECT id, note_title, note_content, created_at FROM notes WHERE :id = company_id";
+            $this->query = "SELECT id, note_title, note_content, created_at FROM notes WHERE :id = company_id ORDER BY created_at DESC";
             
             $this->statement = $this->db->conn->prepare($this->query);
             $this->statement->bindValue(":id", $company_id);
@@ -44,7 +44,7 @@ class NoteController {
                 :note_title)";
                 $this->statement = $this->db->conn->prepare($this->query);
                 $this->statement->bindValue(":company_id", $newNote->company_id);
-                $this->statement->bindValue(":note", $newNote->note_conent);
+                $this->statement->bindValue(":note", $newNote->note_content);
                 $this->statement->bindValue(":note_title", $newNote->note_title);
                 $this->statement->execute();
                 
