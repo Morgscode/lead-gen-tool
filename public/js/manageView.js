@@ -387,7 +387,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       dataCTRL.promiseRequest(url, "post").then(res => {
         console.log(res);
       });
-      uiCTRL.clearForm(e);
+      //uiCTRL.clearForm(e);
     });
 
     domElements.saveMeeting.addEventListener("click", () => {

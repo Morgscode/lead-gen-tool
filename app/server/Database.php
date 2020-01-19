@@ -106,7 +106,7 @@ class Database {
       $this->tables = $this->statement->fetchAll(PDO::FETCH_ASSOC);
     
   } catch (PDOException $e) {
-     echo "We couldn't find any leads :/ ".$e->getMessage();
+     echo "We couldn't find any tables in the database :/ ".$e->getMessage();
   } 
 
   if (!empty($this->tables)) :

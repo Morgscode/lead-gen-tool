@@ -40,16 +40,23 @@ class EventController {
             var_dump($newEvent);
 
             try {
-                $this->query = "INSERT INTO events (company_id, event_title, event_address, event_time, event_date, event_note) VALUES (:company_id, :event_title, :event_address, event_time, event_date,
+                $this->query = "INSERT INTO events (company_id, event_title, event_address, event_time, event_date, event_note) VALUES (:company_id, :event_title, :event_address, :event_time, :event_date,
                 :event_note)";
                 $this->statement = $this->db->conn->prepare($this->query);
                 $this->statement->bindValue(":company_id", $newEvent->company_id);
+                var_dump('bind id runs');
                 $this->statement->bindValue(":event_title", $newEvent->event_title);
+                var_dump('bind title runs');
                 $this->statement->bindValue(":event_address", $newEvent->event_address);
+                var_dump('bind address runs');
                 $this->statement->bindValue(":event_time", $newEvent->event_time);
+                var_dump('bind time runs');
                 $this->statement->bindValue(":event_date", $newEvent->event_date);
+                var_dump('bind date runs');
                 $this->statement->bindValue(":event_note", $newEvent->event_note);
+                var_dump('bind note runs');
                 $this->statement->execute();
+                var_dump('execute runs');
                 
                 exit;
 
@@ -71,5 +78,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_REQUEST['action'] == 'addEvent') {
 } elseif ($_SERVER['REQUEST_METHOD'] == 'GET' && $_REQUEST['action'] == 'getEvents') {
 
     $event_controller->getAllEvents($_REQUEST['id']);
-    
 }
