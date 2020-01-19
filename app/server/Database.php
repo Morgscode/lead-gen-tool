@@ -134,6 +134,11 @@ class Database {
     elseif ($table === "notes"):
 
       $this->query = "CREATE TABLE `leadGenDB`.`notes` ( `id` INT NOT NULL AUTO_INCREMENT , `company_id` INT NOT NULL , `note_title` VARCHAR(255) NOT NULL , `note_content` TEXT NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+      
+
+      elseif ($table === "events"):
+
+        $this->query = "CREATE TABLE `leadGenDB`.`events` ( `id` INT NOT NULL AUTO_INCREMENT , `company_id` INT NOT NULL , `event_title` VARCHAR(255) NOT NULL , `event_address` VARCHAR(255) NOT NULL , `event_time` VARCHAR(255) NOT NULL , `event_date` VARCHAR(255) NOT NULL , `event_note` MEDIUMTEXT NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
     else: 
 

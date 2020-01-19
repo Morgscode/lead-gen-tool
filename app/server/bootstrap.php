@@ -39,3 +39,12 @@ if ($database->tableExists === false) :
 
 endif;
 
+
+//evaulate if notes table exists in leadGenDB
+$database->evaluateTable("events");
+
+if ($database->tableExists === false) : 
+    
+    $database->createTable("events");
+
+endif;
