@@ -48,3 +48,11 @@ if ($database->tableExists === false) :
     $database->createTable("events");
 
 endif;
+
+$database->evaluateTable("meetings");
+
+if ($database->tableExists === false) : 
+    
+    $database->createTable("meetings");
+
+endif;

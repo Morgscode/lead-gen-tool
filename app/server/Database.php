@@ -140,6 +140,10 @@ class Database {
 
         $this->query = "CREATE TABLE `leadGenDB`.`events` ( `id` INT NOT NULL AUTO_INCREMENT , `company_id` INT NOT NULL , `event_title` VARCHAR(255) NOT NULL , `event_address` VARCHAR(255) NOT NULL , `event_time` VARCHAR(255) NOT NULL , `event_date` VARCHAR(255) NOT NULL , `event_note` MEDIUMTEXT NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
+        elseif ($table === "meetings"):
+
+          $this->query = "CREATE TABLE `leadGenDB`.`meetings` ( `id` INT NOT NULL AUTO_INCREMENT , `company_id` INT NOT NULL , `meeting_title` VARCHAR(255) NOT NULL , `meeting_address` VARCHAR(255) NOT NULL , `meeting_time` VARCHAR(255) NOT NULL , `meeting_date` VARCHAR(255) NOT NULL , `meeting_note` MEDIUMTEXT NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+
     else: 
 
       echo 'I can\'t create that table boss :/';
