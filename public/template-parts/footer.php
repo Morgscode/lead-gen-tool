@@ -1,3 +1,11 @@
+<?php 
+/**
+ * Template Name: Footer.php
+ * 
+ */
+
+?>
+</div>
 </div>
 </main>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -9,7 +17,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
-<script src="view.js"></script>
+<script src="https://kit.fontawesome.com/f2ad0cb5b1.js" crossorigin="anonymous"></script>
+<script src="public/js/updateView.js"></script>
+<script src="public/js/manageView.js"></script>
+
 </body>
 
 </html>
