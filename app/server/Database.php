@@ -106,7 +106,7 @@ class Database {
       $this->tables = $this->statement->fetchAll(PDO::FETCH_ASSOC);
     
   } catch (PDOException $e) {
-     echo "We couldn't find any leads :/ ".$e->getMessage();
+     echo "We couldn't find any tables in the database :/ ".$e->getMessage();
   } 
 
   if (!empty($this->tables)) :
@@ -134,6 +134,15 @@ class Database {
     elseif ($table === "notes"):
 
       $this->query = "CREATE TABLE `leadGenDB`.`notes` ( `id` INT NOT NULL AUTO_INCREMENT , `company_id` INT NOT NULL , `note_title` VARCHAR(255) NOT NULL , `note_content` TEXT NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+      
+
+      elseif ($table === "events"):
+
+        $this->query = "CREATE TABLE `leadGenDB`.`events` ( `id` INT NOT NULL AUTO_INCREMENT , `company_id` INT NOT NULL , `event_title` VARCHAR(255) NOT NULL , `event_address` VARCHAR(255) NOT NULL , `event_time` VARCHAR(255) NOT NULL , `event_date` VARCHAR(255) NOT NULL , `event_note` MEDIUMTEXT NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+
+        elseif ($table === "meetings"):
+
+          $this->query = "CREATE TABLE `leadGenDB`.`meetings` ( `id` INT NOT NULL AUTO_INCREMENT , `company_id` INT NOT NULL , `meeting_title` VARCHAR(255) NOT NULL , `meeting_address` VARCHAR(255) NOT NULL , `meeting_time` VARCHAR(255) NOT NULL , `meeting_date` VARCHAR(255) NOT NULL , `meeting_note` MEDIUMTEXT NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 
     else: 
 

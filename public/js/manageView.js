@@ -242,7 +242,7 @@ const manageLeadDataController = (function() {
     saveEvent: function(
       companyID,
       eventNote,
-      eventname,
+      eventName,
       eventAddress,
       eventTime,
       eventDate
@@ -250,7 +250,7 @@ const manageLeadDataController = (function() {
       const event = new Event(
         companyID,
         eventNote,
-        eventname,
+        eventName,
         eventAddress,
         eventTime,
         eventDate
@@ -260,7 +260,7 @@ const manageLeadDataController = (function() {
     saveMeeting: function(
       companyID,
       meetingNote,
-      meetingname,
+      meetingName,
       meetingAddress,
       meetingTime,
       meetingDate
@@ -268,7 +268,7 @@ const manageLeadDataController = (function() {
       const meeting = new Meeting(
         companyID,
         meetingNote,
-        meetingname,
+        meetingName,
         meetingAddress,
         meetingTime,
         meetingDate
@@ -331,6 +331,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
 
     // grab data functions
     domElements.getNotes.addEventListener("click", e => {
+      e.target.innerHTML = "Refresh notes";
       domElements.companyNotesSection.style.minHeight = "450px";
       domElements.companyNotesSection.innerHTML = "";
       const currentLeadID = uiCTRL.getLeadID();
@@ -363,7 +364,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       uiCTRL.clearForm(e);
     });
 
-    domElements.saveEvent.addEventListener("click", () => {
+    domElements.saveEvent.addEventListener("click", e => {
       const currentLeadID = uiCTRL.getLeadID();
       const eventTitle = domInputs.eventNameInput.value;
       const eventNote = domInputs.eventNoteInput.value;
@@ -380,6 +381,13 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
         eventDate
       );
       console.log(event);
+
+      let url = `app/controllers/EventController.php?action=addEvent&companyID=${event.companyID}&title=${event.name}&address=${event.address}&time=${event.time}&date=${event.date}&note=${event.note}`;
+      url = url.toString();
+      dataCTRL.promiseRequest(url, "post").then(res => {
+        console.log(res);
+      });
+      //uiCTRL.clearForm(e);
     });
 
     domElements.saveMeeting.addEventListener("click", () => {

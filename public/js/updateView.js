@@ -22,9 +22,10 @@ const updateLeadUIController = (function() {
   };
 
   const createFormHTMLFunctions = {
-    createFormGroup: function(fieldID) {
+    createFormGroup: function(fieldID, flexOrderParam) {
       let formGroup = document.createElement("div");
       formGroup.classList.add("form-group");
+      formGroup.style.order = flexOrderParam;
       formGroup.id = `${fieldID}-group`;
       formGroup.style.position = "relative";
       return formGroup;
@@ -59,8 +60,15 @@ const updateLeadUIController = (function() {
       closeIcon.classList.add("close-field");
       return closeIcon;
     },
-    generateFormGroup: function(idParam, labelParam, inputParam, domElParam) {
-      const formGroup = this.createFormGroup(idParam);
+    generateFormGroup: function(
+      idParam,
+      flexOrderParam,
+      labelParam,
+      inputParam,
+      domElParam,
+      flexParam
+    ) {
+      const formGroup = this.createFormGroup(idParam, flexOrderParam);
       const formClose = this.createFormClose(idParam);
       formGroup.appendChild(formClose);
       const label = this.createLabel(labelParam);
@@ -78,6 +86,7 @@ const updateLeadUIController = (function() {
     updateCompany: function() {
       const group = createFormHTMLFunctions.generateFormGroup(
         "company-name",
+        0,
         "company name",
         domElements.currentCompanyName,
         domElements.updateCompanyName
@@ -87,6 +96,7 @@ const updateLeadUIController = (function() {
     updateCompanyContact: function() {
       const group = createFormHTMLFunctions.generateFormGroup(
         "contact-name",
+        1,
         "contact name",
         domElements.currentCompanyContact,
         domElements.updateContactName
@@ -96,6 +106,7 @@ const updateLeadUIController = (function() {
     updateCompanyContactRole: function() {
       const group = createFormHTMLFunctions.generateFormGroup(
         "contact-role",
+        2,
         "contact role",
         domElements.currentContactRole,
         domElements.updateContactRole
@@ -105,6 +116,7 @@ const updateLeadUIController = (function() {
     updateCompanyContactEmail: function() {
       const group = createFormHTMLFunctions.generateFormGroup(
         "contact-email",
+        3,
         "contact email",
         domElements.currentContactEmail,
         domElements.updateContactEmail
