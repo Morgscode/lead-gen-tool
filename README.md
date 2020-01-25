@@ -20,7 +20,7 @@ The client-side logic uses IIFEs stored within a variable to prevent the scripts
 
 For the 'manage-view' I decided to veer of the original logic course, and instead of building a seperate view for each manage action, I'm now working towards creating a client-side ajax app which will handle the CRUD requests for each action, utilising js promises. As this is a personal project for self-teaching, I feel it's totally acceptable to do this as I'm pushing myself to learn newer concepts, instead of adding extra functionality, by using a 'frame-work' that I'm already comfortable with.  
 
-Both the client and server-side logic uses an MVC style architecture, in an attempt to keep the code orderly, maintainable and perhaps even scalable. I also preffered an OOP pattern, as opposed to functional programming with a view of keeping to the DRY principle. Because everyone hates repition. 
+Both the client and server-side logic uses an MVC style architecture, in an attempt to keep the code orderly, maintainable and perhaps even scalable. I also preffered an OOP pattern, as opposed to procedural programming with a view of keeping to the DRY principle. Because everyone hates repition. 
 
 There are still some blocks of code which need refactoring. For example, a query builder class on the server-side would really scale down the (php) controller logic.
 
