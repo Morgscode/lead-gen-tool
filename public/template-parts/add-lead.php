@@ -15,7 +15,7 @@
             <h1 class="text-dark">Fill out the form. Simples</h1>
         </div>
         <div class="col-md-6 col-sm-12">
-            <form method="post" id="addLead" class="p-4 bg-dark" class="add-lead-form">
+            <form method="post" id="addLead" class="p-4 bg-dark add-lead-form">
                 <div class="form-group">
                     <label class="text-light" for="company-name">Company name:</label>
                     <input type="text" name="company-name" class="form-control" placeholder="enter company name"
