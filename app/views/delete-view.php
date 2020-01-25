@@ -24,15 +24,9 @@ require_once __DIR__.'/../../public/template-parts/lead-single.php'; ?>
 
 <h2>We're sorry, but there was a problem with that last action</h2>
 
-<?php if(!empty($_GLOBALS['messge'])) : ?>
-
-<pre>
-<?= $_GLOBALS['message'] ?>
-</pre>
-
 
 <?php 
-endif;
+
 endif;
 
 require_once __DIR__.'/../../public/template-parts/footer.php'; ?>
