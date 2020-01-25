@@ -14,19 +14,19 @@ class MeetingController {
         $this->db = $db;
     }
 
-    public function getAllMeeting($company_id) {
+    public function getAllMeetings($company_id) {
 
         try {
             
-            $this->query = "SELECT * FROM events WHERE :id = company_id ORDER BY created_at DESC";
+            $this->query = "SELECT * FROM meetings WHERE :id = company_id ORDER BY created_at DESC";
             
             $this->statement = $this->db->conn->prepare($this->query);
             $this->statement->bindValue(":id", $company_id);
             $this->statement->execute();
             
-            $events = $this->statement->fetchAll(PDO::FETCH_OBJ);
+            $meetings = $this->statement->fetchAll(PDO::FETCH_OBJ);
          
-            echo json_encode($events);
+            echo json_encode($meetings);
 
         } catch (PDOException $e) {
             var_dump($e->getMessage());

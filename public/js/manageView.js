@@ -9,7 +9,7 @@ const manageLeadUIController = (function() {
     notesPanel: document.querySelector("#notes-panel"),
     eventsPanel: document.querySelector("#events-panel"),
     meetingsPanel: document.querySelector("#meetings-panel"),
-    companyNotesSection: document.querySelector("#company-notes"),
+    companyNotesSection: document.querySelector("#company-notes-section"),
     companyMeetingSection: document.querySelector("#company-meetings"),
     companyEventSection: document.querySelector("#company-events"),
     showNoteForm: document.querySelector("#show-note-form"),
@@ -276,8 +276,9 @@ const manageLeadUIController = (function() {
       meetingTimeStamp
     ];
     meetingElements.forEach(element => {
+      console.log(element);
       meetingWrapper.appendChild(element);
-      domElements.companyEventSection.appendChild(meetingWrapper);
+      domElements.companyMeetingSection.appendChild(meetingWrapper);
     });
   };
 
@@ -440,7 +441,7 @@ const manageLeadDataController = (function() {
 
 // --- APP CONTROLLER
 const manageLeadAppController = (function(uiCTRL, dataCTRL) {
-  //define functions where ui interacts with data controller
+  // define functions where ui interacts with data controller
   const dataUiFunctions = {
     getAllNotes: function() {
       const currentLeadID = uiCTRL.getLeadID();
@@ -482,6 +483,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       });
       meetings.then(data => {
         const meetingsArr = JSON.parse(data);
+        console.log(meetingsArr);
         meetingsArr.forEach(meeting => {
           uiCTRL.appendCompanyMeeting(meeting);
         });
@@ -576,7 +578,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
     });
 
     domElements.getMeetings.addEventListener("click", e => {
-      e.target.innerHTML = "Refresh events";
+      e.target.innerHTML = "Refresh meetings";
       domElements.companyMeetingSection.style.minHeight = "450px";
       domElements.companyMeetingSection.innerHTML = "";
       dataUiFunctions.getAllMeetings();
