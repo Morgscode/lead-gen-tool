@@ -78,4 +78,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_REQUEST['action'] == 'addEvent') {
 } elseif ($_SERVER['REQUEST_METHOD'] == 'GET' && $_REQUEST['action'] == 'getEvents') {
 
     $event_controller->getAllEvents($_REQUEST['id']);
+    
 }

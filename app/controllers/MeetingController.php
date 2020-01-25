@@ -45,15 +45,15 @@ class MeetingController {
                 $this->statement = $this->db->conn->prepare($this->query);
                 $this->statement->bindValue(":company_id", $newMeeting->company_id);
                 var_dump('bind id runs');
-                $this->statement->bindValue(":event_title", $newMeeting->event_title);
+                $this->statement->bindValue(":meeting_title", $newMeeting->meeting_title);
                 var_dump('bind title runs');
-                $this->statement->bindValue(":event_address", $newMeeting->event_address);
+                $this->statement->bindValue(":meeting_address", $newMeeting->meeting_address);
                 var_dump('bind address runs');
-                $this->statement->bindValue(":event_time", $newMeeting->event_time);
+                $this->statement->bindValue(":meeting_time", $newMeeting->meeting_time);
                 var_dump('bind time runs');
-                $this->statement->bindValue(":event_date", $newMeeting->event_date);
+                $this->statement->bindValue(":meeting_date", $newMeeting->meeting_date);
                 var_dump('bind date runs');
-                $this->statement->bindValue(":event_note", $newMeeting->event_note);
+                $this->statement->bindValue(":meeting_note", $newMeeting->meeting_note);
                 var_dump('bind note runs');
                 $this->statement->execute();
                 var_dump('execute runs');
@@ -72,8 +72,8 @@ $meeting_controller = new MeetingController($database);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_REQUEST['action'] == 'addMeeting') {
     
-    $newMeeting = new Event($_REQUEST);
-    $meeting_controller->createEvent($newMeeting);
+    $newMeeting = new Meeting($_REQUEST);
+    $meeting_controller->createMeeting($newMeeting);
     
 } elseif ($_SERVER['REQUEST_METHOD'] == 'GET' && $_REQUEST['action'] == 'getMeetings') {
 

@@ -103,6 +103,7 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
         </form>
         <section class="p-4 d-none" id="company-meetings">
             <h2>Scheduled meetings with <?= $lead->company_name;?></h2>
+            <div class="row justify-content-center" id="company-meetings"></div>
         </section>
     </div>
 </section>
@@ -154,6 +155,7 @@ require_once __DIR__.'/../../public/template-parts/header.php'; ?>
         </form>
         <section class="p-4 d-none" id="company-events">
             <h2>Planned events with <?= $lead->company_name;?></h2>
+            <div class="row justify-content-center" id="company-events"></div>
         </section>
     </div>
 </section>

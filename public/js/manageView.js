@@ -9,8 +9,9 @@ const manageLeadUIController = (function() {
     notesPanel: document.querySelector("#notes-panel"),
     eventsPanel: document.querySelector("#events-panel"),
     meetingsPanel: document.querySelector("#meetings-panel"),
-    noteForm: document.querySelector("#note-form"),
     companyNotesSection: document.querySelector("#company-notes"),
+    companyMeetingSection: document.querySelector("#company-meetings"),
+    companyEventSection: document.querySelector("#company-events"),
     showNoteForm: document.querySelector("#show-note-form"),
     closeNoteForm: document.querySelector("#close-note-form"),
     showEventForm: document.querySelector("#show-event-form"),
@@ -19,6 +20,8 @@ const manageLeadUIController = (function() {
     closeMeetingForm: document.querySelector("#close-meeting-form"),
     saveNote: document.querySelector("#save-note"),
     getNotes: document.querySelector("#see-notes"),
+    getEvents: document.querySelector("#see-events"),
+    getMeetings: document.querySelector("#see-meetings"),
     saveEvent: document.querySelector("#save-event"),
     saveMeeting: document.querySelector("#save-meeting"),
     clearNoteForm: document.querySelector("#clear-note-form"),
@@ -92,9 +95,9 @@ const manageLeadUIController = (function() {
       return domElements.currentLeadForm.dataset.leadId;
     },
     clearCurrentForm: function(e) {
-      const currentForm = e.path[2].elements;
-      for (const childNode of currentForm) {
-        childNode.value = "";
+      const currentFormInputs = e.path[2].elements;
+      for (const input of currentFormInputs) {
+        input.value = "";
       }
     }
   };
@@ -128,6 +131,154 @@ const manageLeadUIController = (function() {
       timeStamp.classList.add("mb-0");
       return timeStamp;
     }
+  };
+
+  const createEventHTMLFunctions = {
+    createEventWrapper: function(event) {
+      const eventWrapper = document.createElement("div");
+      eventWrapper.classList.add("card");
+      eventWrapper.classList.add("col-md-10");
+      eventWrapper.classList.add("col-sm-12");
+      eventWrapper.classList.add("p-2");
+      eventWrapper.classList.add("mb-3");
+      eventWrapper.id = event.id;
+      return eventWrapper;
+    },
+    createEventTitle: function(event) {
+      const title = document.createElement("h5");
+      title.innerHTML = event.event_title;
+      title.classList.add("mb-2");
+      return title;
+    },
+    createEventAddress: function(event) {
+      const address = document.createElement("h5");
+      address.innerHTML = event.event_address;
+      address.classList.add("mb-2");
+      return address;
+    },
+    createEventTime: function(event) {
+      const time = document.createElement("h5");
+      time.innerHTML = event.event_time;
+      time.classList.add("mb-2");
+      return time;
+    },
+    createEventDate: function(event) {
+      const date = document.createElement("h5");
+      date.innerHTML = event.event_date;
+      date.classList.add("mb-2");
+      return date;
+    },
+    createEventNote: function(event) {
+      const note = document.createElement("p");
+      note.innerHTML = event.event_note;
+      note.classList.add("mb-2");
+      return note;
+    },
+    createEventTimeStamp: function(event) {
+      const timeStamp = document.createElement("p");
+      timeStamp.innerHTML = event.created_at;
+      timeStamp.classList.add("mb-0");
+      return timeStamp;
+    }
+  };
+
+  const createMeetingHTMLFunctions = {
+    createMeetingWrapper: function(meeting) {
+      const meetingWrapper = document.createElement("div");
+      meetingWrapper.classList.add("card");
+      meetingWrapper.classList.add("col-md-10");
+      meetingWrapper.classList.add("col-sm-12");
+      meetingWrapper.classList.add("p-2");
+      meetingWrapper.classList.add("mb-3");
+      meetingWrapper.id = meeting.id;
+      return meetingWrapper;
+    },
+    createMeetingTitle: function(meeting) {
+      const title = document.createElement("h5");
+      title.innerHTML = meeting.meeting_title;
+      title.classList.add("mb-2");
+      return title;
+    },
+    createMeetingAddress: function(meeting) {
+      const address = document.createElement("h5");
+      address.innerHTML = meeting.meeting_address;
+      address.classList.add("mb-2");
+      return address;
+    },
+    createMeetingTime: function(meeting) {
+      const time = document.createElement("h5");
+      time.innerHTML = meeting.meeting_time;
+      time.classList.add("mb-2");
+      return time;
+    },
+    createMeetingDate: function(meeting) {
+      const date = document.createElement("h5");
+      date.innerHTML = meeting.meeting_date;
+      date.classList.add("mb-2");
+      return date;
+    },
+    createMeetingNote: function(meeting) {
+      const note = document.createElement("p");
+      note.innerHTML = meeting.meeting_note;
+      note.classList.add("mb-2");
+      return note;
+    },
+    createMeetingTimeStamp: function(meeting) {
+      const timeStamp = document.createElement("p");
+      timeStamp.innerHTML = meeting.created_at;
+      timeStamp.classList.add("mb-0");
+      return timeStamp;
+    }
+  };
+
+  const appendEvent = event => {
+    const eventWrapper = createEventHTMLFunctions.createEventWrapper(event);
+    const eventTitle = createEventHTMLFunctions.createEventTitle(event);
+    const eventAddress = createEventHTMLFunctions.createEventAddress(event);
+    const eventTime = createEventHTMLFunctions.createEventTime(event);
+    const eventDate = createEventHTMLFunctions.createEventTime(event);
+    const eventNote = createEventHTMLFunctions.createEventNote(event);
+    const eventTimeStamp = createEventHTMLFunctions.createEventTimeStamp(event);
+    const eventElements = [
+      eventTitle,
+      eventAddress,
+      eventTime,
+      eventDate,
+      eventNote,
+      eventTimeStamp
+    ];
+    eventElements.forEach(element => {
+      eventWrapper.appendChild(element);
+      domElements.companyEventSection.appendChild(eventWrapper);
+    });
+  };
+
+  const appendMeeting = meeting => {
+    const meetingWrapper = createMeetingHTMLFunctions.createMeetingWrapper(
+      meeting
+    );
+    const meetingTitle = createMeetingHTMLFunctions.createMeetingTitle(meeting);
+    const meetingAddress = createMeetingHTMLFunctions.createMeetingAddress(
+      meeting
+    );
+    const meetingTime = createMeetingHTMLFunctions.createMeetingTime(meeting);
+    const meetingDate = createMeetingHTMLFunctions.createMeetingTime(meeting);
+    const meetingNote = createMeetingHTMLFunctions.createMeetingNote(meeting);
+    const meetingTimeStamp = createMeetingHTMLFunctions.createMeetingTimeStamp(
+      meeting
+    );
+    const meetingElements = [
+      meetingTitle,
+      meetingAddress,
+      meetingTime,
+      meetingDate,
+      meetingNote,
+      meetingTimeStamp
+    ];
+    meetingElements.forEach(element => {
+      meetingWrapper.appendChild(element);
+      domElements.companyEventSection.appendChild(meetingWrapper);
+    });
   };
 
   const appendNote = note => {
@@ -171,6 +322,12 @@ const manageLeadUIController = (function() {
     },
     appendCompanyNote: function(note) {
       return appendNote(note);
+    },
+    appendCompanyEvent: function(event) {
+      return appendEvent(event);
+    },
+    appendCompanyMeeting: function(meeting) {
+      return appendMeeting(meeting);
     }
   };
 })();
@@ -275,14 +432,83 @@ const manageLeadDataController = (function() {
       );
       return meeting;
     },
-    promiseRequest: function(url, action, data) {
-      return ajaxPromise(url, action, data);
+    promiseRequest: function(url, action) {
+      return ajaxPromise(url, action);
     }
   };
 })();
 
 // --- APP CONTROLLER
 const manageLeadAppController = (function(uiCTRL, dataCTRL) {
+  const dataUiFunctions = {
+    getAllNotes: function() {
+      const currentLeadID = uiCTRL.getLeadID();
+      let url = `app/controllers/NoteController.php?action=getNotes&id=${currentLeadID}`;
+      url = url.toString();
+      const notes = dataCTRL.promiseRequest(url, "get").then(res => {
+        console.log(res);
+        return res;
+      });
+      notes.then(data => {
+        const notesArr = JSON.parse(data);
+        notesArr.forEach(note => {
+          uiCTRL.appendCompanyNote(note);
+        });
+      });
+    },
+    getAllEvents: function() {
+      const currentLeadID = uiCTRL.getLeadID();
+      let url = `app/controllers/EventController.php?action=getEvents&id=${currentLeadID}`;
+      url = url.toString();
+      const events = dataCTRL.promiseRequest(url, "get").then(res => {
+        console.log(res);
+        return res;
+      });
+      events.then(data => {
+        const eventsArr = JSON.parse(data);
+        eventsArr.forEach(event => {
+          uiCTRL.appendCompanyEvent(event);
+        });
+      });
+    },
+    getAllMeetings: function() {
+      const currentLeadID = uiCTRL.getLeadID();
+      let url = `app/controllers/MeetingController.php?action=getMeetings&id=${currentLeadID}`;
+      url = url.toString();
+      const meetings = dataCTRL.promiseRequest(url, "get").then(res => {
+        console.log(res);
+        return res;
+      });
+      meetings.then(data => {
+        const meetingsArr = JSON.parse(data);
+        meetingsArr.forEach(meeting => {
+          uiCTRL.appendCompanyMeeting(meeting);
+        });
+      });
+    },
+    postNote: function(note) {
+      let url = `app/controllers/NoteController.php?action=addNote&title=${note.title}&note=${note.note}&companyID=${note.companyID}`;
+      url = url.toString();
+      dataCTRL.promiseRequest(url, "post").then(res => {
+        console.log(res);
+      });
+    },
+    postEvent: function(event) {
+      let url = `app/controllers/EventController.php?action=addEvent&companyID=${event.companyID}&title=${event.name}&address=${event.address}&time=${event.time}&date=${event.date}&note=${event.note}`;
+      url = url.toString();
+      dataCTRL.promiseRequest(url, "post").then(res => {
+        console.log(res);
+      });
+    },
+    postMeeting: function(meeting) {
+      let url = `app/controllers/MeetingController.php?action=addMeeting&companyID=${meeting.companyID}&title=${meeting.name}&address=${meeting.address}&time=${meeting.time}&date=${meeting.date}&note=${meeting.note}`;
+      url = url.toString();
+      dataCTRL.promiseRequest(url, "post").then(res => {
+        console.log(res);
+      });
+    }
+  };
+
   //create an event listener box
   const manageLeadEventBox = () => {
     // make domInputs available to app controller
@@ -334,19 +560,16 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       e.target.innerHTML = "Refresh notes";
       domElements.companyNotesSection.style.minHeight = "450px";
       domElements.companyNotesSection.innerHTML = "";
-      const currentLeadID = uiCTRL.getLeadID();
-      let url = `app/controllers/NoteController.php?action=getNotes&id=${currentLeadID}`;
-      url = url.toString();
-      const notes = dataCTRL.promiseRequest(url, "get").then(res => {
-        console.log(res);
-        return res;
-      });
-      notes.then(data => {
-        const notesArr = JSON.parse(data);
-        notesArr.forEach(note => {
-          uiCTRL.appendCompanyNote(note);
-        });
-      });
+      dataUiFunctions.getAllNotes();
+      uiCTRL.showAddMetaPanel(e);
+    });
+
+    // grab data functions
+    domElements.getEvents.addEventListener("click", e => {
+      e.target.innerHTML = "Refresh events";
+      domElements.companyEventSection.style.minHeight = "450px";
+      domElements.companyEventSection.innerHTML = "";
+      dataUiFunctions.getAllEvents();
       uiCTRL.showAddMetaPanel(e);
     });
 
@@ -356,11 +579,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       const noteTitle = domInputs.noteTitleInput.value;
       const noteContent = domInputs.noteInput.value;
       let note = dataCTRL.saveNote(currentLeadID, noteContent, noteTitle);
-      let url = `app/controllers/NoteController.php?action=addNote&title=${note.title}&note=${note.note}&companyID=${note.companyID}`;
-      url = url.toString();
-      dataCTRL.promiseRequest(url, "post").then(res => {
-        console.log(res);
-      });
+      dataUiFunctions.postNote(note);
       uiCTRL.clearForm(e);
     });
 
@@ -381,16 +600,11 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
         eventDate
       );
       console.log(event);
-
-      let url = `app/controllers/EventController.php?action=addEvent&companyID=${event.companyID}&title=${event.name}&address=${event.address}&time=${event.time}&date=${event.date}&note=${event.note}`;
-      url = url.toString();
-      dataCTRL.promiseRequest(url, "post").then(res => {
-        console.log(res);
-      });
-      //uiCTRL.clearForm(e);
+      dataUiFunctions.postEvent(event);
+      uiCTRL.clearForm(e);
     });
 
-    domElements.saveMeeting.addEventListener("click", () => {
+    domElements.saveMeeting.addEventListener("click", e => {
       const currentLeadID = uiCTRL.getLeadID();
       const meetingTitle = domInputs.meetingNameInput.value;
       const meetingNote = domInputs.meetingNoteInput.value;
@@ -407,6 +621,8 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
         meetingDate
       );
       console.log(meeting);
+      dataUiFunctions.postMeeting(meeting);
+      uiCTRL.clearForm(e);
     });
   }; // manageLeadEventBox() end
 
