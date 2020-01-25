@@ -440,6 +440,7 @@ const manageLeadDataController = (function() {
 
 // --- APP CONTROLLER
 const manageLeadAppController = (function(uiCTRL, dataCTRL) {
+  //define functions where ui interacts with data controller
   const dataUiFunctions = {
     getAllNotes: function() {
       const currentLeadID = uiCTRL.getLeadID();
@@ -522,6 +523,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       domElements.meetingsTab
     ];
 
+    // add event listener to each panel
     panelEventListeners.forEach(element => {
       element.addEventListener("click", uiCTRL.showPanel);
     });
@@ -545,6 +547,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       ]
     ];
 
+    // add event listeners to forms
     formEventListeners[0].forEach(element => {
       element.addEventListener("click", uiCTRL.showForm);
     });
@@ -555,7 +558,7 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       element.addEventListener("click", uiCTRL.clearForm);
     });
 
-    // grab data functions
+    // add event listeners to 'see all data' buttons
     domElements.getNotes.addEventListener("click", e => {
       e.target.innerHTML = "Refresh notes";
       domElements.companyNotesSection.style.minHeight = "450px";
@@ -564,7 +567,6 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       uiCTRL.showAddMetaPanel(e);
     });
 
-    // grab data functions
     domElements.getEvents.addEventListener("click", e => {
       e.target.innerHTML = "Refresh events";
       domElements.companyEventSection.style.minHeight = "450px";
@@ -573,7 +575,15 @@ const manageLeadAppController = (function(uiCTRL, dataCTRL) {
       uiCTRL.showAddMetaPanel(e);
     });
 
-    // save data functions
+    domElements.getMeetings.addEventListener("click", e => {
+      e.target.innerHTML = "Refresh events";
+      domElements.companyMeetingSection.style.minHeight = "450px";
+      domElements.companyMeetingSection.innerHTML = "";
+      dataUiFunctions.getAllMeetings();
+      uiCTRL.showAddMetaPanel(e);
+    });
+
+    // add event listeners to 'post data' buttons
     domElements.saveNote.addEventListener("click", e => {
       const currentLeadID = uiCTRL.getLeadID();
       const noteTitle = domInputs.noteTitleInput.value;
